@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version 1.0
  * @date 2020-01-28 11:55
  **/
+@CrossOrigin
 @RestController
 @RequestMapping("/admin")
 @Api(tags = "管理员接口")
@@ -29,7 +30,7 @@ public class AdminController {
     @Resource
     private AdminService adminService;
 
-    @Value("${loginConfig.cookieDomain}")
+    @Value("${cookieDomain}")
     private String cookieDomain;
 
     @ApiOperation(value = "管理员登录", notes = "管理员登录")
@@ -67,19 +68,19 @@ public class AdminController {
     })
     @PostMapping("/updatePassword")
     public ResponseResult<Void> adminUpdatePassword(HttpServletResponse response, String adminId, String oldPwd, String newPwd) {
-        if(StringUtils.isBlank(adminId) || StringUtils.isBlank(oldPwd) || StringUtils.isBlank(newPwd)){
+        if (StringUtils.isBlank(adminId) || StringUtils.isBlank(oldPwd) || StringUtils.isBlank(newPwd)) {
             return new ResponseResult<>(false, "参数不完整");
         }
         boolean aBoolean = adminService.verifyPasswordById(adminId, oldPwd);
-        if(!aBoolean){
-            return new ResponseResult<>(false,"密码不正确，无法修改");
+        if (!aBoolean) {
+            return new ResponseResult<>(false, "密码不正确，无法修改");
         }
-        boolean bBoolean = adminService.updatePassword(adminId,newPwd);
-        if(bBoolean){
+        boolean bBoolean = adminService.updatePassword(adminId, newPwd);
+        if (bBoolean) {
             CookieUtil.addCookie(response, cookieDomain, "/", "admin", "", 0, false);
-            return new ResponseResult<>(true,"修改成功");
+            return new ResponseResult<>(true, "修改成功");
         }
-        return new ResponseResult<>(false,"修改错误");
+        return new ResponseResult<>(false, "修改错误");
     }
 
 

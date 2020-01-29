@@ -24,6 +24,7 @@ public class AdminService {
 
     /**
      * 管理员登录
+     *
      * @param username
      * @param password
      * @return
@@ -33,7 +34,7 @@ public class AdminService {
         if (admin != null) {
             String adminPassword = admin.getAdminPassword();
             String md5Pwd = DigestUtils.md5DigestAsHex(password.getBytes());
-            if(md5Pwd.equals(adminPassword)){
+            if (md5Pwd.equals(adminPassword)) {
                 admin.setAdminPassword(null);
                 return admin;
             }
@@ -43,6 +44,7 @@ public class AdminService {
 
     /**
      * 管理员注册
+     *
      * @param admin
      * @return
      */
@@ -50,13 +52,14 @@ public class AdminService {
         admin.setAdminPassword(DigestUtils.md5DigestAsHex(admin.getAdminPassword().getBytes()));
         admin.setAdminCreatTime(TimeUtil.getNowTime());
         admin.setAdminUpdateTime(TimeUtil.getNowTime());
-        int i  = adminMapper.insertAdmin(admin);
+        int i = adminMapper.insertAdmin(admin);
         return i == 1;
     }
 
     /**
      * 验证密码
-     * @param adminId 管理员ID
+     *
+     * @param adminId  管理员ID
      * @param password 密码
      * @return boolean
      */
@@ -67,12 +70,13 @@ public class AdminService {
 
     /**
      * 修改密码
+     *
      * @param adminId
      * @param newPwd
      * @return
      */
     public boolean updatePassword(String adminId, String newPwd) {
-        int i = adminMapper.updatePasswordById(adminId,DigestUtils.md5DigestAsHex(newPwd.getBytes()));
-        return i==1;
+        int i = adminMapper.updatePasswordById(adminId, DigestUtils.md5DigestAsHex(newPwd.getBytes()));
+        return i == 1;
     }
 }

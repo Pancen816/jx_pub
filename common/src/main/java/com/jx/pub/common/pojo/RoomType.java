@@ -21,7 +21,7 @@ public class RoomType implements Serializable {
     /**
      * 类型名称
      */
-    @ApiModelProperty(value = "类型名称")
+    @ApiModelProperty(value = "类型名称（10字内）")
     private String typeName;
 
     /**
@@ -55,25 +55,25 @@ public class RoomType implements Serializable {
     private String typeMaxPeople;
 
     /**
-     * 是否有早餐
+     * 是否有早餐（0:无，1有）
      */
     @ApiModelProperty(value = "是否有早餐")
     private String typeBreakfast;
 
     /**
-     * 床铺信息
+     * 床铺信息(15字以内)
      */
     @ApiModelProperty(value = "床铺信息")
     private String typeBed;
 
     /**
-     *
+     * 创建时间
      */
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "创建时间")
     private String typeCreatTime;
 
     /**
-     *
+     * 更新时间
      */
     @ApiModelProperty(value = "")
     private String typeUpdateTime;

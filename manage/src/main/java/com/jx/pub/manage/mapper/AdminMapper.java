@@ -22,6 +22,7 @@ public interface AdminMapper {
 
     /**
      * 新增管理员
+     *
      * @param admin
      * @return
      */
@@ -29,16 +30,18 @@ public interface AdminMapper {
 
     /**
      * 根据id获取密码
+     *
      * @param adminId
      * @return
      */
-    String getPasswordById(@Param("adminId")  String adminId);
+    String getPasswordById(@Param("adminId") String adminId);
 
     /**
      * 根据id修改密码
+     *
      * @param adminId
      * @param newPwd
      * @return
      */
-    int updatePasswordById(@Param("adminId") String adminId,@Param("newPwd")  String newPwd);
+    int updatePasswordById(@Param("adminId") String adminId, @Param("newPwd") String newPwd);
 }
