@@ -71,7 +71,7 @@ public class RoomTypeController {
 
     @ApiOperation(value = "添加房型", notes = "添加房型")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "typeName", value = "类型名称", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "typeName", value = "类型名称(10字以内)", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "typePic", value = "图片地址", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "typePrice", value = "房间价格", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "typeArea", value = "面积", required = true, dataType = "String", paramType = "query"),
