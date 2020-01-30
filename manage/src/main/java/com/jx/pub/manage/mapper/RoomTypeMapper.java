@@ -52,4 +52,12 @@ public interface RoomTypeMapper {
      * @return
      */
     int getCountByTypeName(@Param("typeName") String typeName);
+
+    /**
+     * 根据id获取房型名称
+     *
+     * @param typeId
+     * @return
+     */
+    String getTypeNameById(@Param("typeId") String typeId);
 }

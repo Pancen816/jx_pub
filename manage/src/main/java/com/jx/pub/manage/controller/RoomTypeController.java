@@ -53,13 +53,13 @@ public class RoomTypeController {
         if (StringUtils.isBlank(url)) {
             return new ResponseResult<>(false, "上传失败");
         }
-        return new ResponseResult<>(true, "上传成功0", picUrl+url);
+        return new ResponseResult<>(true, "上传成功0", picUrl + url);
     }
 
     @ApiOperation(value = "检查房型名是否重复", notes = "用户输入完房型名后前端调用此接口")
-    @ApiImplicitParam(name = "typeName", value = "类型名称", required = true, dataType = "String", paramType = "query")
-    @GetMapping("/checkTypeName")
-    public ResponseResult<Boolean> checkTypeName(String typeName) {
+    @ApiImplicitParam(name = "typeName", value = "类型名称", required = true, dataType = "String", paramType = "path")
+    @GetMapping("/checkTypeName/{typeName}")
+    public ResponseResult<Boolean> checkTypeName(@PathVariable("typeName") String typeName) {
         if (StringUtils.isBlank(typeName)) {
             return new ResponseResult<>(false, "房型名称为空");
         }
@@ -120,6 +120,14 @@ public class RoomTypeController {
             return new ResponseResult<>(false, checkResult);
         }
 
+        String typeName = roomTypeService.getTypeNameById(roomType.getTypeId());
+        //修改了房型名，验证是否重复
+        if (!typeName.equals(roomType.getTypeName())) {
+            if (!roomTypeService.checkTypeName(roomType.getTypeName())) {
+                return new ResponseResult<>(false, "修改失败:房型名称重复");
+            }
+        }
+
         boolean aBoolean = roomTypeService.updateRoomType(roomType);
         if (aBoolean) {
             return new ResponseResult<>(true, "修改成功");
@@ -129,8 +137,8 @@ public class RoomTypeController {
 
     @ApiOperation(value = "删除房型", notes = "删除房型")
     @ApiImplicitParam(name = "typeId", value = "房型id", required = true, dataType = "String", paramType = "query")
-    @GetMapping("/deleteRoomTypeById")
-    public ResponseResult<Void> deleteRoomTypeById(String typeId) {
+    @GetMapping("/deleteRoomTypeById/{typeId}")
+    public ResponseResult<Void> deleteRoomTypeById(@PathVariable("typeId") String typeId) {
         if (StringUtils.isBlank(typeId)) {
             return new ResponseResult<>(false, "删除失败：无法获取房型id");
         }

@@ -27,4 +27,8 @@
     <select id="getCountByTypeName" resultType="int">
         SELECT COUNT(*) FROM  room_type WHERE type_name = #{typeName}
     </select>
+
+    <select id="getTypeNameById" resultType="java.lang.String">
+        SELECT type_name FROM room_type WHERE type_id = #{typeId}
+    </select>
 </mapper>

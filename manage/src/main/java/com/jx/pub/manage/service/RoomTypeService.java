@@ -104,4 +104,13 @@ public class RoomTypeService {
         }
         return null;
     }
+
+    /**
+     * 根据id获取房型名称
+     * @param typeId
+     * @return
+     */
+    public String getTypeNameById(String typeId) {
+        return roomTypeMapper.getTypeNameById(typeId);
+    }
 }

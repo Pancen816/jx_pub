@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jx.pub.manage.mapper.RoomMapper">
+
+    <select id="getRoomListByCon" resultType="com.jx.pub.common.pojo.Room">
+        SELECT * FROM room
+        <where>
+            <if test="con.typeId != null and con.typeId != ''">type_id = #{con.typeId}</if>
+            <if test="con.roomNumber != null and con.roomNumber != ''">AND room_number LIKE CONCAT('%',#{con.roomNumber},'%') </if>
+            <if test="con.roomStatus != null and con.roomStatus != ''">AND room_status = #{con.roomStatus}</if>
+        </where>
+    </select>
+
+    <select id="getCountByRoomNumber" resultType="int">
+        SELECT COUNT(*) FROM room WHERE room_number = #{roomNumber}
+    </select>
+
+    <insert id="addRoom">
+        INSERT INTO room VALUES
+        (#{room.roomId},#{room.typeId},#{room.roomNumber},#{room.roomStatus},#{room.roomCreatTime},#{room.roomUpdateTime})
+    </insert>
+
+    <update id="updateRoomById">
+        UPDATE room SET
+        type_id = #{room.typeId}, room_number = #{room.roomNumber}, room_update_time = #{room.roomUpdateTime}
+        WHERE room_id = #{room.roomId}
+    </update>
+
+    <delete id="deleteRoomById">
+        DELETE FROM room WHERE room_id = #{roomId}
+    </delete>
+
+    <select id="getRoomNumberById" resultType="java.lang.String">
+        SELECT room_number FROM room WHERE room_id = #{roomId}
+    </select>
+</mapper>
