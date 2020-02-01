@@ -70,7 +70,7 @@ public class RoomService {
         return i == 1;
     }
 
-    public String getRoomNumberById(String roomId){
+    public String getRoomNumberById(String roomId) {
         return roomMapper.getRoomNumberById(roomId);
     }
 
@@ -88,11 +88,23 @@ public class RoomService {
 
     /**
      * 根据id删除房间
+     *
      * @param roomId
      * @return
      */
     public boolean deleteRoomById(String roomId) {
         int i = roomMapper.deleteRoomById(roomId);
         return i == 1;
+    }
+
+    /**
+     * 查看房间状态 是否可被删除
+     *
+     * @param roomId
+     * @return
+     */
+    public boolean isNotPeopleIn(String roomId) {
+        String status = roomMapper.getRoomStatusById(roomId);
+        return "0".equals(status);
     }
 }

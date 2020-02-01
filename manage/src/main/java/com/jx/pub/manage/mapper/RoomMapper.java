@@ -61,4 +61,20 @@ public interface RoomMapper {
      * @return
      */
     String getRoomNumberById(@Param("roomId") String roomId);
+
+    /**
+     * 根据 房型id 获取 房间数量
+     *
+     * @param typeId
+     * @return
+     */
+    Integer getCountById(@Param("typeId") String typeId);
+
+    /**
+     * 根据房间id查询房间状态
+     *
+     * @param roomId
+     * @return
+     */
+    String getRoomStatusById(@Param("roomId") String roomId);
 }

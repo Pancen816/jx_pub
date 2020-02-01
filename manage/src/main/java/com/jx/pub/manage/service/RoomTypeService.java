@@ -3,6 +3,8 @@ package com.jx.pub.manage.service;
 import com.jx.pub.common.pojo.RoomType;
 import com.jx.pub.common.util.IDUtil;
 import com.jx.pub.common.util.TimeUtil;
+import com.jx.pub.manage.mapper.OrderMapper;
+import com.jx.pub.manage.mapper.RoomMapper;
 import com.jx.pub.manage.mapper.RoomTypeMapper;
 import org.csource.fastdfs.*;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,12 @@ public class RoomTypeService {
 
     @Resource
     RoomTypeMapper roomTypeMapper;
+
+    @Resource
+    RoomMapper roomMapper;
+
+    @Resource
+    OrderMapper orderMapper;
 
     /**
      * 获取所有房型
@@ -107,10 +115,46 @@ public class RoomTypeService {
 
     /**
      * 根据id获取房型名称
+     *
      * @param typeId
      * @return
      */
     public String getTypeNameById(String typeId) {
         return roomTypeMapper.getTypeNameById(typeId);
+    }
+
+    /**
+     * 查询房型剩余房间数
+     *
+     * @param typeId
+     * @param beginTime
+     * @param endTime
+     * @return
+     */
+    public Integer getUsableNumberById(String typeId, String beginTime, String endTime) {
+        Integer totalNumber = roomMapper.getCountById(typeId);
+        Integer sum = orderMapper.getRoomSumByTypeId(typeId, beginTime, endTime);
+        return totalNumber - sum;
+    }
+
+    /**
+     * 查询该房型是否有未完成订单
+     *
+     * @param typeId
+     * @return
+     */
+    public boolean isHaveNotDoneOrder(String typeId) {
+        int count = orderMapper.getNotDoneOrderCountByTypeId(typeId);
+        return count == 0;
+    }
+
+    /**
+     * 查询该房型下的房间数量
+     *
+     * @param typeId
+     * @return
+     */
+    public int getRoomsCount(String typeId) {
+        return roomMapper.getCountById(typeId);
     }
 }

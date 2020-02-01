@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.DigestUtils;
 
+import java.sql.Time;
+
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class ManageApplicationTests {
@@ -35,5 +37,7 @@ public class ManageApplicationTests {
     public void testTimeUtil() {
         System.out.println(TimeUtil.getNowData());
         System.out.println(TimeUtil.getNowTime());
+        System.out.println(TimeUtil.getRoomBeginTime());
+        System.out.println(TimeUtil.getRoomEndTime());
     }
 }

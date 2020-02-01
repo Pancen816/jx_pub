@@ -2,6 +2,7 @@ package com.jx.pub.manage.controller;
 
 import com.jx.pub.common.dto.ResponseResult;
 import com.jx.pub.common.pojo.RoomType;
+import com.jx.pub.common.util.TimeUtil;
 import com.jx.pub.manage.service.RoomTypeService;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import io.swagger.annotations.Api;
@@ -17,6 +18,7 @@ import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
+import java.sql.Time;
 import java.util.List;
 
 /**
@@ -136,17 +138,47 @@ public class RoomTypeController {
     }
 
     @ApiOperation(value = "删除房型", notes = "删除房型")
-    @ApiImplicitParam(name = "typeId", value = "房型id", required = true, dataType = "String", paramType = "query")
+    @ApiImplicitParam(name = "typeId", value = "房型id", required = true, dataType = "String", paramType = "path")
     @GetMapping("/deleteRoomTypeById/{typeId}")
     public ResponseResult<Void> deleteRoomTypeById(@PathVariable("typeId") String typeId) {
         if (StringUtils.isBlank(typeId)) {
             return new ResponseResult<>(false, "删除失败：无法获取房型id");
+        }
+        boolean isHaveNotDoneOrder = roomTypeService.isHaveNotDoneOrder(typeId);
+        if (!isHaveNotDoneOrder) {
+            return new ResponseResult<>(false, "删除失败：该房型有未完成订单");
+        }
+        int roomCount = roomTypeService.getRoomsCount(typeId);
+        if (roomCount > 0) {
+            return new ResponseResult<>(false, "删除失败：该房型下还有" + roomCount + "个房间");
         }
         boolean aBoolean = roomTypeService.deleteRoomTypeById(typeId);
         if (aBoolean) {
             return new ResponseResult<>(true, "删除成功");
         }
         return new ResponseResult<>(false, "删除失败");
+    }
+
+    @ApiOperation(value = "查询房型某时间段内剩余房间数", notes = "查询房型某时间段内剩余房间数")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "typeId", value = "房型id", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "beginTime", value = "开始时间(默认为当日14点)", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "endTime", value = "结束时间(默认为明日12点)", required = false, dataType = "String", paramType = "query"),
+    })
+    @PostMapping("/getUsableNumberById")
+    public ResponseResult<Integer> getUsableNumberById(String typeId, String beginTime, String endTime) {
+        if (StringUtils.isBlank(typeId)) {
+            return new ResponseResult<>(false, "查询失败：无法获取房型id");
+        }
+        if (StringUtils.isBlank(beginTime) && StringUtils.isBlank(endTime)) {
+            beginTime = TimeUtil.getRoomBeginTime();
+            endTime = TimeUtil.getRoomEndTime();
+        }
+        if (StringUtils.isBlank(beginTime) || StringUtils.isBlank(endTime)) {
+            return new ResponseResult<>(false, "查询失败：无法获取起始时间");
+        }
+        Integer usableNumber = roomTypeService.getUsableNumberById(typeId, beginTime, endTime);
+        return new ResponseResult<>(true, "查询成功", usableNumber);
     }
 
     /**

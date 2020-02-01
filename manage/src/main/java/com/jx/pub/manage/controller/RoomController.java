@@ -107,6 +107,13 @@ public class RoomController {
     @ApiImplicitParam(name = "roomId", value = "房间id", required = true, dataType = "String", paramType = "path")
     @GetMapping("/deleteRoomById/{roomId}")
     public ResponseResult<Void> deleteRoomById(@PathVariable("roomId") String roomId) {
+        if (StringUtils.isBlank(roomId)) {
+            return new ResponseResult<>(false, "删除失败,无法获取房间id");
+        }
+        boolean isNotPeopleIn = roomService.isNotPeopleIn(roomId);
+        if (!isNotPeopleIn) {
+            return new ResponseResult<>(false, "删除失败,有客人尚未退房");
+        }
         boolean aBoolean = roomService.deleteRoomById(roomId);
         if (aBoolean) {
             return new ResponseResult<>(true, "删除成功");

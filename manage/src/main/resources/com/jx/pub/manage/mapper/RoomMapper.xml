@@ -33,4 +33,12 @@
     <select id="getRoomNumberById" resultType="java.lang.String">
         SELECT room_number FROM room WHERE room_id = #{roomId}
     </select>
+
+    <select id="getCountById" resultType="java.lang.Integer">
+        SELECT count(*) FROM room WHERE type_id = #{typeId}
+    </select>
+
+    <select id="getRoomStatusById" resultType="java.lang.String">
+        SELECT room_status FROM room WHERE room_id = #{roomId}
+    </select>
 </mapper>

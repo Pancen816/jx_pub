@@ -43,7 +43,7 @@ public class Order implements Serializable {
     private String lodgerPhone;
 
     /**
-     * 预定房间数量（默认1）
+     * 预定房间数量（默认1 线下1）
      */
     @ApiModelProperty(value = "预定房间数量（默认1）")
     private String reserveNumber;

@@ -4,7 +4,6 @@ import com.jx.pub.common.dto.ResponseResult;
 import com.jx.pub.common.pojo.Admin;
 import com.jx.pub.common.util.CookieUtil;
 import com.jx.pub.manage.service.AdminService;
-import com.sun.org.apache.regexp.internal.RE;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
