@@ -35,7 +35,7 @@
     </select>
 
     <select id="getCountById" resultType="java.lang.Integer">
-        SELECT count(*) FROM room WHERE type_id = #{typeId}
+        SELECT COUNT(*) FROM room WHERE type_id = #{typeId}
     </select>
 
     <select id="getRoomStatusById" resultType="java.lang.String">

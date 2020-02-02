@@ -3,12 +3,15 @@
 <mapper namespace="com.jx.pub.manage.mapper.OrderMapper">
 
     <select id="getRoomSumByTypeId" resultType="java.lang.Integer">
-        SELECT SUM(reserve_number) FROM 'order' WHERE type_id = #{typeId}
-        AND come_time &lt;= #{beginTime} AND leave_time &gt;= #{endTime}
+        SELECT SUM(reserve_number) FROM orders WHERE type_id = #{typeId}
+        AND ( come_time &lt; #{beginTime} AND leave_time &gt; #{beginTime} )
+        OR ( come_time &gt;= #{beginTime} AND leave_time &lt;= #{endTime} )
+        OR ( come_time &lt; #{endTime} AND leave_time &gt; #{endTime} )
+        OR ( come_time &lt;= #{beginTime} AND leave_time &gt;= #{endTime} )
     </select>
 
     <select id="getNotDoneOrderCountByTypeId" resultType="int">
-        SELECT COUNT(*) FROM 'order' WHERE order_status = '0' AND type_id = #{typeId}
+        SELECT COUNT(*) FROM orders WHERE order_status = '0' AND type_id = #{typeId}
     </select>
 
 </mapper>

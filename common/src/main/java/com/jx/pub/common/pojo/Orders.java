@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @ApiModel(value = "com-jx-pub-common-pojo-Order")
 @Data
-public class Order implements Serializable {
+public class Orders implements Serializable {
     /**
      * 主键id
      */

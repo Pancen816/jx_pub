@@ -33,10 +33,14 @@ public class RoomTypeService {
     /**
      * 获取所有房型
      *
+     * @param beginTime
+     * @param endTime
      * @return
      */
-    public List<RoomType> getRoomTypeList() {
-        return roomTypeMapper.getRoomTypeList();
+    public List<RoomType> getRoomTypeList(String beginTime, String endTime) {
+        List<RoomType> roomTypeList = roomTypeMapper.getRoomTypeList(beginTime, endTime);
+        roomTypeList.forEach(i -> i.setTypeRestRoomCount(i.getTypeRoomCount() - i.getTypeOrderSum()));
+        return roomTypeList;
     }
 
     /**

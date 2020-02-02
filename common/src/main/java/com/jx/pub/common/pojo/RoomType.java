@@ -75,8 +75,26 @@ public class RoomType implements Serializable {
     /**
      * 更新时间
      */
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "更新时间")
     private String typeUpdateTime;
+
+    /**
+     * 预定房间数
+     */
+    @ApiModelProperty(value = "预定房间数")
+    private Integer typeOrderSum;
+
+    /**
+     * 房间总数
+     */
+    @ApiModelProperty(value = "房间总数")
+    private Integer typeRoomCount;
+
+    /**
+     * 剩余房间数（房间总数-预定房间数）
+     */
+    @ApiModelProperty(value = "房间总数（房间总数-预定房间数）")
+    private Integer typeRestRoomCount;
 
     private static final long serialVersionUID = -8681146305242423028L;
 }

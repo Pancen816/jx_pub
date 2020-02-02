@@ -17,9 +17,11 @@ public interface RoomTypeMapper {
     /**
      * 获取所有房型
      *
+     * @param beginTime
+     * @param endTime
      * @return
      */
-    List<RoomType> getRoomTypeList();
+    List<RoomType> getRoomTypeList(@Param("beginTime") String beginTime, @Param("endTime") String endTime);
 
     /**
      * 添加房型

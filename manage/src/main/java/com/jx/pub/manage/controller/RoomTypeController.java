@@ -39,9 +39,17 @@ public class RoomTypeController {
     private String picUrl;
 
     @ApiOperation(value = "获取所有房型", notes = "获取所有房型")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "beginTime", value = "开始时间(默认为当日14点)", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "endTime", value = "结束时间(默认为明日12点)", required = false, dataType = "String", paramType = "query"),
+    })
     @GetMapping("/getRoomTypeList")
-    public ResponseResult<List<RoomType>> getRoomTypeList() {
-        List<RoomType> roomTypeList = roomTypeService.getRoomTypeList();
+    public ResponseResult<List<RoomType>> getRoomTypeList(String beginTime, String endTime) {
+        if (StringUtils.isBlank(beginTime) || StringUtils.isBlank(endTime)) {
+            beginTime = TimeUtil.getRoomBeginTime();
+            endTime = TimeUtil.getRoomEndTime();
+        }
+        List<RoomType> roomTypeList = roomTypeService.getRoomTypeList(beginTime, endTime);
         return new ResponseResult<>(true, "获取全部房型列表", roomTypeList);
     }
 
@@ -170,12 +178,9 @@ public class RoomTypeController {
         if (StringUtils.isBlank(typeId)) {
             return new ResponseResult<>(false, "查询失败：无法获取房型id");
         }
-        if (StringUtils.isBlank(beginTime) && StringUtils.isBlank(endTime)) {
+        if (StringUtils.isBlank(beginTime) || StringUtils.isBlank(endTime)) {
             beginTime = TimeUtil.getRoomBeginTime();
             endTime = TimeUtil.getRoomEndTime();
-        }
-        if (StringUtils.isBlank(beginTime) || StringUtils.isBlank(endTime)) {
-            return new ResponseResult<>(false, "查询失败：无法获取起始时间");
         }
         Integer usableNumber = roomTypeService.getUsableNumberById(typeId, beginTime, endTime);
         return new ResponseResult<>(true, "查询成功", usableNumber);

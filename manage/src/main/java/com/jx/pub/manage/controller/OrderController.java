@@ -2,7 +2,6 @@ package com.jx.pub.manage.controller;
 
 import com.jx.pub.common.dto.OfflineOrder;
 import com.jx.pub.common.dto.ResponseResult;
-import com.jx.pub.common.pojo.Order;
 import com.jx.pub.manage.mapper.OrderMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
