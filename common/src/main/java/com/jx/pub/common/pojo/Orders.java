@@ -2,8 +2,9 @@ package com.jx.pub.common.pojo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * @author: Faxon
@@ -43,27 +44,27 @@ public class Orders implements Serializable {
     private String lodgerPhone;
 
     /**
-     * 预定房间数量（默认1 线下1）
+     * 预定房间数量
      */
-    @ApiModelProperty(value = "预定房间数量（默认1）")
+    @ApiModelProperty(value = "预定房间数量")
     private String reserveNumber;
 
     /**
-     * 预计入住时间（yyyy-MM-dd 14:00:00）
+     * 入住时间（yyyy-MM-dd 14:00:00）
      */
     @ApiModelProperty(value = "预计入住时间（yyyy-MM-dd 14:00:00）")
     private String comeTime;
 
     /**
-     * 预计退房时间（yyyy-MM-dd 12:00:00）
+     * 退房时间（yyyy-MM-dd 12:00:00）
      */
     @ApiModelProperty(value = "预计退房时间（yyyy-MM-dd 12:00:00）")
     private String leaveTime;
 
     /**
-     * 房间价格
+     * 房型价格
      */
-    @ApiModelProperty(value = "房间价格")
+    @ApiModelProperty(value = "房型价格")
     private String roomPrice;
 
     /**

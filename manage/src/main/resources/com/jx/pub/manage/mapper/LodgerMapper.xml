@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jx.pub.manage.mapper.LodgerMapper">
+
+    <insert id="addLodgers">
+        INSERT INTO lodger VALUES
+        <foreach collection="lodgers" item="lodger" separator=",">
+            (#{lodger.lodgerId},#{lodger.lodgerName},#{lodger.lodgerIdNumber},#{lodger.lodgerSex},
+            #{lodger.orderItemId},#{lodger.lodgerCreatTime},#{lodger.lodgerUpdateTime})
+        </foreach>
+    </insert>
+</mapper>

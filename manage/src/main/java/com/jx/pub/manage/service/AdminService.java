@@ -1,15 +1,12 @@
 package com.jx.pub.manage.service;
 
 import com.jx.pub.common.pojo.Admin;
-import com.jx.pub.common.util.IDUtil;
 import com.jx.pub.common.util.TimeUtil;
 import com.jx.pub.manage.mapper.AdminMapper;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
-import java.util.UUID;
 
 /**
  * @author Faxon

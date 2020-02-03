@@ -2,8 +2,9 @@ package com.jx.pub.common.pojo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * @author: Faxon
@@ -31,10 +32,10 @@ public class Lodger implements Serializable {
     private String lodgerIdNumber;
 
     /**
-     * 性别
+     * 性别（0：男，1：女）
      */
-    @ApiModelProperty(value = "性别")
-    private String lodgerIdSex;
+    @ApiModelProperty(value = "性别（0：男，1：女）")
+    private String lodgerSex;
 
     /**
      * 订单项id

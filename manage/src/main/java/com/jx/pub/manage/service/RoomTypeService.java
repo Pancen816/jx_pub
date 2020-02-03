@@ -161,4 +161,14 @@ public class RoomTypeService {
     public int getRoomsCount(String typeId) {
         return roomMapper.getCountById(typeId);
     }
+
+    /**
+     * 查询房型限住人数
+     *
+     * @param typeId
+     * @return
+     */
+    public int getTypeMaxPeopleById(String typeId) {
+        return roomTypeMapper.getTypeMaxPeopleById(typeId);
+    }
 }

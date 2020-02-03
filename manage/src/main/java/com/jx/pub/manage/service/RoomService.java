@@ -8,8 +8,6 @@ import com.jx.pub.common.pojo.Room;
 import com.jx.pub.common.util.IDUtil;
 import com.jx.pub.common.util.TimeUtil;
 import com.jx.pub.manage.mapper.RoomMapper;
-import com.sun.xml.internal.bind.v2.model.core.ID;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

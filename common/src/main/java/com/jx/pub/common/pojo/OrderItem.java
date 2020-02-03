@@ -2,8 +2,10 @@ package com.jx.pub.common.pojo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
 import lombok.Data;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author: Faxon
@@ -53,6 +55,12 @@ public class OrderItem implements Serializable {
      */
     @ApiModelProperty(value = "修改时间")
     private String itemUpdateTime;
+
+    /**
+     * 入住人信息集合
+     */
+    @ApiModelProperty(value = "入住人信息集合")
+    private List<Lodger> lodgers;
 
     private static final long serialVersionUID = -8897591827401779135L;
 }

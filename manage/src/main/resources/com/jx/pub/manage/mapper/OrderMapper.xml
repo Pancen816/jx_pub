@@ -14,4 +14,11 @@
         SELECT COUNT(*) FROM orders WHERE order_status = '0' AND type_id = #{typeId}
     </select>
 
+    <insert id="addOrder">
+       INSERT INTO orders VALUES
+       (#{order.orderId},#{order.userId},#{order.typeId},#{order.lodgerName},#{order.lodgerPhone},#{order.reserveNumber},
+        #{order.comeTime},#{order.leaveTime},#{order.roomPrice},#{order.orderPrice},#{order.orderRealityPrice},#{order.orderStatus},
+        #{order.orderCreatTime},#{order.orderUpdateTime})
+    </insert>
+
 </mapper>

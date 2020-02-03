@@ -62,4 +62,12 @@ public interface RoomTypeMapper {
      * @return
      */
     String getTypeNameById(@Param("typeId") String typeId);
+
+    /**
+     * 查询房型限住人数
+     *
+     * @param typeId
+     * @return
+     */
+    int getTypeMaxPeopleById(@Param("typeId") String typeId);
 }

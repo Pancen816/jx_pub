@@ -1,5 +1,6 @@
 package com.jx.pub.manage.mapper;
 
+import com.jx.pub.common.dto.OfflineOrder;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +28,11 @@ public interface OrderMapper {
      * @return
      */
     int getNotDoneOrderCountByTypeId(@Param("typeId") String typeId);
+
+    /**
+     * 添加订单
+     * @param order
+     * @return
+     */
+    int addOrder(@Param("order") OfflineOrder order);
 }
