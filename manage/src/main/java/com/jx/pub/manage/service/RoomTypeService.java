@@ -1,5 +1,6 @@
 package com.jx.pub.manage.service;
 
+import com.jx.pub.common.pojo.Room;
 import com.jx.pub.common.pojo.RoomType;
 import com.jx.pub.common.util.IDUtil;
 import com.jx.pub.common.util.TimeUtil;
@@ -39,7 +40,11 @@ public class RoomTypeService {
      */
     public List<RoomType> getRoomTypeList(String beginTime, String endTime) {
         List<RoomType> roomTypeList = roomTypeMapper.getRoomTypeList(beginTime, endTime);
-        roomTypeList.forEach(i -> i.setTypeRestRoomCount(i.getTypeRoomCount() - i.getTypeOrderSum()));
+        for (RoomType roomType : roomTypeList) {
+            roomType.setTypeRestRoomCount(roomType.getTypeRoomCount() - roomType.getTypeOrderSum());
+            List<Room> rooms = roomMapper.getRoomsByTypeId(roomType.getTypeId());
+            roomType.setRoomList(rooms);
+        }
         return roomTypeList;
     }
 

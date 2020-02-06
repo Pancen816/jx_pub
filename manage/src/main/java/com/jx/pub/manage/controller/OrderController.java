@@ -1,9 +1,12 @@
 package com.jx.pub.manage.controller;
 
 import com.jx.pub.common.dto.OfflineOrder;
+import com.jx.pub.common.dto.OrderPageSearchCon;
+import com.jx.pub.common.dto.PageBean;
 import com.jx.pub.common.dto.ResponseResult;
 import com.jx.pub.common.pojo.Lodger;
 import com.jx.pub.common.pojo.OrderItem;
+import com.jx.pub.common.pojo.Orders;
 import com.jx.pub.common.util.IDUtil;
 import com.jx.pub.common.util.TimeUtil;
 import com.jx.pub.manage.service.OrderService;
@@ -33,7 +36,7 @@ public class OrderController {
     @Resource
     RoomTypeService roomTypeService;
 
-    @ApiOperation(value = "线下开单", notes = "线下开单")
+    @ApiOperation(value = "开单", notes = "开单")
     @PostMapping("/addOrder")
     public ResponseResult<Void> addOrder(@RequestBody OfflineOrder order) {
         String message = checkOrdersParams(order);
@@ -45,6 +48,63 @@ public class OrderController {
             return new ResponseResult<>(true, "开单成功");
         }
         return new ResponseResult<>(false, "开单失败");
+    }
+
+    @ApiOperation(value = "条件分页获取订单列表", notes = "条件分页获取订单列表")
+    @PostMapping("/getOrderList")
+    public ResponseResult<PageBean<Orders>> getOrderList(@RequestBody OrderPageSearchCon con) {
+        String message = checkConParams(con);
+        if (null != message) {
+            return new ResponseResult<>(false, message);
+        }
+        PageBean<Orders> pageBean = orderService.getOrderList(con);
+        return new ResponseResult<>(true, "查询成功", pageBean);
+    }
+
+    @ApiOperation(value = "根据id删除订单", notes = "根据id删除订单")
+    @GetMapping("/deleteOrderById/{orderId}")
+    public ResponseResult<Void> deleteOrderById(@PathVariable("orderId") String orderId) {
+        boolean aBoolean = orderService.deleteOrderById(orderId);
+        if (aBoolean) {
+            return new ResponseResult<>(true, "删除订单成功");
+        }
+        return new ResponseResult<>(false, "删除订单失败");
+    }
+
+    @GetMapping("/getOrderById/{orderId}")
+    public ResponseResult<Orders> getOrderById(@PathVariable("orderId") String orderId) {
+        Orders orders = orderService.getOrderById(orderId);
+        if (null == orders) {
+            return new ResponseResult<>(false, "查询订单失败");
+        }
+        return new ResponseResult<>(true, "查询订单成功",orders);
+    }
+
+    /**
+     * 检查条件搜索时的参数合法性
+     *
+     * @param con
+     * @return
+     */
+    private String checkConParams(OrderPageSearchCon con) {
+        if (null != con) {
+            if (null == con.getPage() || con.getPage() < 0) {
+                con.setPage(1);
+            }
+            if (null == con.getSize() || con.getSize() < 0) {
+                con.setSize(3);
+            }
+            String status = con.getOrderStatus();
+            if (StringUtils.isNotBlank(status) && !"0".equals(status) && !"1".equals(status) && !"2".equals(status)) {
+                return "搜索失败，订单状态参数非法（限定0,1,2）";
+            }
+            String beginTime = con.getBeginTime();
+            String endTime = con.getEndTime();
+            if (StringUtils.isNotBlank(beginTime) && StringUtils.isNotBlank(endTime) && beginTime.compareTo(endTime) != -1) {
+                return "搜索失败，时间参数非法（开始时间大于结束时间）";
+            }
+        }
+        return null;
     }
 
     /**
@@ -60,9 +120,16 @@ public class OrderController {
                 || StringUtils.isBlank(order.getOrderRealityPrice()) || order.getOrderItems().size() < 1) {
             return "开单失败，订单信息缺少必要参数";
         }
-        order.setOrderId(IDUtil.getUUID());
+        if ("0000".equals(order.getUserId())) {
+            if (StringUtils.isBlank(order.getOrderId())) {
+                return "开单失败，线上订单开单时需要订单id";
+            }
+        } else {
+            order.setOrderId(IDUtil.getUUID());
+            order.setOrderCreatTime(TimeUtil.getNowTime());
+        }
+        order.setOrderShowStatus("0");
         order.setOrderStatus("1");
-        order.setOrderCreatTime(TimeUtil.getNowTime());
         order.setOrderUpdateTime(TimeUtil.getNowTime());
         List<OrderItem> orderItems = order.getOrderItems();
         if (orderItems.size() > Integer.parseInt(order.getReserveNumber())) {
@@ -82,6 +149,7 @@ public class OrderController {
             item.setOrderId(order.getOrderId());
             item.setRealityComeTime(TimeUtil.getNowTime());
             item.setRealityLeaveTime(order.getLeaveTime());
+            item.setItemStatus("0");
             item.setItemCreatTime(order.getOrderCreatTime());
             item.setItemUpdateTime(order.getOrderUpdateTime());
             for (int j = 0; j < lodgers.size(); j++) {

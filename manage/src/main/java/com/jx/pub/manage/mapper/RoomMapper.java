@@ -6,6 +6,8 @@ import com.jx.pub.common.pojo.Room;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @author Faxon
  * @version 1.0
@@ -77,4 +79,12 @@ public interface RoomMapper {
      * @return
      */
     String getRoomStatusById(@Param("roomId") String roomId);
+
+    /**
+     * 根据 房型id 获取房间
+     *
+     * @param typeId
+     * @return
+     */
+    List<Room> getRoomsByTypeId(@Param("typeId") String typeId);
 }

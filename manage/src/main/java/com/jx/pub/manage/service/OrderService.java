@@ -1,10 +1,16 @@
 package com.jx.pub.manage.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.jx.pub.common.dto.OfflineOrder;
+import com.jx.pub.common.dto.OrderPageSearchCon;
+import com.jx.pub.common.dto.PageBean;
 import com.jx.pub.common.pojo.OrderItem;
+import com.jx.pub.common.pojo.Orders;
 import com.jx.pub.manage.mapper.LodgerMapper;
 import com.jx.pub.manage.mapper.OrderItemMapper;
 import com.jx.pub.manage.mapper.OrderMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +36,13 @@ public class OrderService {
 
     @Transactional(rollbackFor = Exception.class)
     public boolean addOrder(OfflineOrder order) {
-        int i = orderMapper.addOrder(order);
+        int i = 0;
+        if(StringUtils.isBlank(order.getOrderId())){
+            i = orderMapper.addOrder(order);
+        }else {
+            i = orderMapper.updateOrderById(order);
+        }
+
         if (i == 1) {
             List<OrderItem> orderItems = order.getOrderItems();
             int j = orderItemMapper.addOrderItems(orderItems);
@@ -41,5 +53,20 @@ public class OrderService {
             }
         }
         return true;
+    }
+
+    public PageBean<Orders> getOrderList(OrderPageSearchCon con) {
+        PageHelper.startPage(con.getPage(),con.getSize());
+        Page<Orders> page = orderMapper.getOrderList(con);
+        return new PageBean<>(page.getPageNum(),page.getPageSize(),page.getResult(),page.getTotal());
+    }
+
+    public boolean deleteOrderById(String orderId) {
+        int i = orderMapper.deleteOrderById(orderId);
+        return i == 1;
+    }
+
+    public Orders getOrderById(String orderId) {
+        return orderMapper.getOrderById(orderId);
     }
 }

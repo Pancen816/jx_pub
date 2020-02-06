@@ -6,7 +6,7 @@
         INSERT INTO order_item VALUES
         <foreach collection="orderItems" separator="," item="item">
             (#{item.itemId},#{item.orderId},#{item.roomId},#{item.realityComeTime},#{item.realityLeaveTime},
-            #{item.itemCreatTime},#{item.itemUpdateTime})
+            #{item.itemStatus},#{item.itemCreatTime},#{item.itemUpdateTime})
         </foreach>
     </insert>
 </mapper>

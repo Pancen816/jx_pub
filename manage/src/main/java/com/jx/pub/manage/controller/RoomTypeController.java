@@ -4,7 +4,6 @@ import com.jx.pub.common.dto.ResponseResult;
 import com.jx.pub.common.pojo.RoomType;
 import com.jx.pub.common.util.TimeUtil;
 import com.jx.pub.manage.service.RoomTypeService;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -18,7 +17,6 @@ import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
-import java.sql.Time;
 import java.util.List;
 
 /**
@@ -38,7 +36,7 @@ public class RoomTypeController {
     @Value("${picUrl}")
     private String picUrl;
 
-    @ApiOperation(value = "获取所有房型", notes = "获取所有房型")
+    @ApiOperation(value = "获取所有房型", notes = "获取所有房型及房型对应的所有房间集合，前端在开单界面需判断房间状态是否入住")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "beginTime", value = "开始时间(默认为当日14点)", required = false, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "endTime", value = "结束时间(默认为明日12点)", required = false, dataType = "String", paramType = "query"),

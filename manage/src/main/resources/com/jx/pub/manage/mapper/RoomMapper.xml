@@ -41,4 +41,8 @@
     <select id="getRoomStatusById" resultType="java.lang.String">
         SELECT room_status FROM room WHERE room_id = #{roomId}
     </select>
+
+    <select id="getRoomsByTypeId" resultType="com.jx.pub.common.pojo.Room">
+        SELECT * FROM room WHERE type_id = #{typeId}
+    </select>
 </mapper>

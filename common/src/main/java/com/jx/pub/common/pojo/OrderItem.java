@@ -45,6 +45,12 @@ public class OrderItem implements Serializable {
     private String realityLeaveTime;
 
     /**
+     * 订单项状态（0：已入住，1：已退房）
+     */
+    @ApiModelProperty(value = "订单项状态（0：已入住，1：已退房）")
+    private String itemStatus;
+
+    /**
      * 创建时间
      */
     @ApiModelProperty(value = "创建时间")

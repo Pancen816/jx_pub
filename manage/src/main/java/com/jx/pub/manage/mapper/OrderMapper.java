@@ -1,6 +1,9 @@
 package com.jx.pub.manage.mapper;
 
+import com.github.pagehelper.Page;
 import com.jx.pub.common.dto.OfflineOrder;
+import com.jx.pub.common.dto.OrderPageSearchCon;
+import com.jx.pub.common.pojo.Orders;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,8 +34,41 @@ public interface OrderMapper {
 
     /**
      * 添加订单
+     *
      * @param order
      * @return
      */
     int addOrder(@Param("order") OfflineOrder order);
+
+    /**
+     * 分页条件搜索订单
+     *
+     * @param con
+     * @return
+     */
+    Page<Orders> getOrderList(@Param("con") OrderPageSearchCon con);
+
+    /**
+     * 根据id 删除订单
+     *
+     * @param orderId
+     * @return
+     */
+    int deleteOrderById(@Param("orderId") String orderId);
+
+    /**
+     * 根据id修改订单
+     *
+     * @param order
+     * @return
+     */
+    int updateOrderById(@Param("order") OfflineOrder order);
+
+    /**
+     * 根据id查询订单信息
+     *
+     * @param orderId
+     * @return
+     */
+    Orders getOrderById(@Param("orderId") String orderId);
 }

@@ -80,9 +80,15 @@ public class Orders implements Serializable {
     private String orderRealityPrice;
 
     /**
-     * 订单状态（0：未完成；1：已完成；2：已删除）
+     * 客户端是否展示，即用户是否删除订单
      */
-    @ApiModelProperty(value = "订单状态（0：未完成；1：已完成；2：已删除）")
+    @ApiModelProperty(value = "用户是否删除订单（用户是否删除（0：未删除；1已删除））")
+    private String orderShowStatus;
+
+    /**
+     * 订单状态（0：未入住；1：已入住；2：已完成；3：已删除）
+     */
+    @ApiModelProperty(value = "订单状态（0：未入住；1：已入住；2：已完成；3：已删除）")
     private String orderStatus;
 
     /**
