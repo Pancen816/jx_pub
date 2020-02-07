@@ -5,6 +5,7 @@ import com.jx.pub.common.pojo.Orders;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import java.util.List;
  * @version 1.0
  * @date 2020-01-30 18:39
  **/
+@EqualsAndHashCode(callSuper = true)
 @Data
 @ToString
 @ApiModel(description = "线下开单 数据对象")
