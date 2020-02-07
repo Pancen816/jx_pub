@@ -62,6 +62,20 @@ public class OrderItem implements Serializable {
     @ApiModelProperty(value = "修改时间")
     private String itemUpdateTime;
 
+    // -----------------------
+
+    /**
+     * 房号
+     */
+    @ApiModelProperty(value = "房号")
+    private String roomNumber;
+
+    /**
+     * 房型名称
+     */
+    @ApiModelProperty(value = "房型名称")
+    private String typeName;
+
     /**
      * 入住人信息集合
      */

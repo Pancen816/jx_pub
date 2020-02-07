@@ -1,5 +1,6 @@
 package com.jx.pub.manage.mapper;
 
+import com.github.pagehelper.Page;
 import com.jx.pub.common.pojo.OrderItem;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -22,4 +23,11 @@ public interface OrderItemMapper {
      */
     int addOrderItems(@Param("orderItems") List<OrderItem> orderItems);
 
+    /**
+     * 获取订单项
+     *
+     * @param roomNumber
+     * @return
+     */
+    Page<OrderItem> getOrderItems(@Param("roomNumber") String roomNumber);
 }
