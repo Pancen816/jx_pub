@@ -2,6 +2,7 @@ package com.jx.pub.manage.mapper;
 
 import com.github.pagehelper.Page;
 import com.jx.pub.common.dto.RoomPageSearchCon;
+import com.jx.pub.common.pojo.Lodger;
 import com.jx.pub.common.pojo.Room;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -87,4 +88,22 @@ public interface RoomMapper {
      * @return
      */
     List<Room> getRoomsByTypeId(@Param("typeId") String typeId);
+
+    /**
+     * 根据房间id 获取当前入住人
+     *
+     * @param roomId
+     * @return
+     */
+    List<Lodger> getLodgersByRoomId(@Param("roomId") String roomId);
+
+    /**
+     * 改变房间状态为空房
+     *
+     * @param roomId
+     * @param status
+     * @param updateTime
+     * @return
+     */
+    int updateRoomStatusById(@Param("roomId") String roomId, @Param("status") String status, @Param("updateTime") String updateTime);
 }

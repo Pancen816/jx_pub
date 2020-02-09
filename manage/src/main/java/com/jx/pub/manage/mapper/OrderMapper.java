@@ -71,4 +71,14 @@ public interface OrderMapper {
      * @return
      */
     Orders getOrderById(@Param("orderId") String orderId);
+
+    /**
+     * 更新订单状态
+     *
+     * @param orderId
+     * @param status
+     * @param updateTime
+     * @return
+     */
+    int updateOrderStatusById(@Param("orderId") String orderId, @Param("status") String status, @Param("updateTime") String updateTime);
 }

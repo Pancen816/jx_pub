@@ -3,6 +3,7 @@ package com.jx.pub.manage.controller;
 import com.jx.pub.common.dto.PageBean;
 import com.jx.pub.common.dto.ResponseResult;
 import com.jx.pub.common.dto.RoomPageSearchCon;
+import com.jx.pub.common.pojo.Lodger;
 import com.jx.pub.common.pojo.Room;
 import com.jx.pub.manage.service.RoomService;
 import io.swagger.annotations.Api;
@@ -13,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author Faxon
@@ -119,6 +121,19 @@ public class RoomController {
             return new ResponseResult<>(true, "删除成功");
         }
         return new ResponseResult<>(false, "删除失败");
+    }
+
+    @ApiOperation(value = "根据房间id获取入住人信息", notes = "根据房间id获取入住人信息")
+    @GetMapping("getLodgersByRoomId/{roomId}")
+    public ResponseResult<List<Lodger>> getLodgersByRoomId(@PathVariable("roomId") String roomId) {
+        if (StringUtils.isBlank(roomId)) {
+            return new ResponseResult<>(false, "查询入住人失败,无法获取房间id");
+        }
+        List<Lodger> lodgerList = roomService.getLodgersByRoomId(roomId);
+        if (lodgerList != null) {
+            return new ResponseResult<>(true, "查询入住人成功", lodgerList);
+        }
+        return new ResponseResult<>(false, "查询入住人失败");
     }
 
     /**

@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.jx.pub.common.dto.PageBean;
 import com.jx.pub.common.dto.RoomPageSearchCon;
+import com.jx.pub.common.pojo.Lodger;
 import com.jx.pub.common.pojo.Room;
 import com.jx.pub.common.util.IDUtil;
 import com.jx.pub.common.util.TimeUtil;
@@ -11,6 +12,7 @@ import com.jx.pub.manage.mapper.RoomMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author Faxon
@@ -104,5 +106,15 @@ public class RoomService {
     public boolean isNotPeopleIn(String roomId) {
         String status = roomMapper.getRoomStatusById(roomId);
         return "0".equals(status);
+    }
+
+    /**
+     * 根据房间id 获取当前入住人
+     *
+     * @param roomId
+     * @return
+     */
+    public List<Lodger> getLodgersByRoomId(String roomId) {
+        return roomMapper.getLodgersByRoomId(roomId);
     }
 }

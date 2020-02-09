@@ -7,9 +7,11 @@ import com.jx.pub.common.dto.OrderPageSearchCon;
 import com.jx.pub.common.dto.PageBean;
 import com.jx.pub.common.pojo.OrderItem;
 import com.jx.pub.common.pojo.Orders;
+import com.jx.pub.common.util.TimeUtil;
 import com.jx.pub.manage.mapper.LodgerMapper;
 import com.jx.pub.manage.mapper.OrderItemMapper;
 import com.jx.pub.manage.mapper.OrderMapper;
+import com.jx.pub.manage.mapper.RoomMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,12 +36,15 @@ public class OrderService {
     @Resource
     LodgerMapper lodgerMapper;
 
+    @Resource
+    RoomMapper roomMapper;
+
     @Transactional(rollbackFor = Exception.class)
     public boolean addOrder(OfflineOrder order) {
-        int i = 0;
-        if(StringUtils.isBlank(order.getOrderId())){
+        int i;
+        if (StringUtils.isBlank(order.getOrderId())) {
             i = orderMapper.addOrder(order);
-        }else {
+        } else {
             i = orderMapper.updateOrderById(order);
         }
 
@@ -48,6 +53,7 @@ public class OrderService {
             int j = orderItemMapper.addOrderItems(orderItems);
             if (j > 0) {
                 for (OrderItem item : orderItems) {
+                    roomMapper.updateRoomStatusById(item.getRoomId(), "1", TimeUtil.getNowTime());
                     lodgerMapper.addLodgers(item.getLodgers());
                 }
             }
@@ -56,9 +62,9 @@ public class OrderService {
     }
 
     public PageBean<Orders> getOrderList(OrderPageSearchCon con) {
-        PageHelper.startPage(con.getPage(),con.getSize());
+        PageHelper.startPage(con.getPage(), con.getSize());
         Page<Orders> page = orderMapper.getOrderList(con);
-        return new PageBean<>(page.getPageNum(),page.getPageSize(),page.getResult(),page.getTotal());
+        return new PageBean<>(page.getPageNum(), page.getPageSize(), page.getResult(), page.getTotal());
     }
 
     public boolean deleteOrderById(String orderId) {

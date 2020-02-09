@@ -5,10 +5,9 @@ import com.jx.pub.common.dto.ResponseResult;
 import com.jx.pub.common.pojo.OrderItem;
 import com.jx.pub.manage.service.OrderItemService;
 import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -26,6 +25,7 @@ public class OrderItemController {
     @Resource
     OrderItemService itemService;
 
+    @ApiOperation(value = "退房列表接口", notes = "退房列表接口")
     @PostMapping("/getOrderItems")
     public ResponseResult<PageBean<OrderItem>> getOrderItems(Integer page, Integer size, String roomNumber) {
         if (null == page || page < 0) {
@@ -36,5 +36,18 @@ public class OrderItemController {
         }
         PageBean<OrderItem> pageBean = itemService.getOrderItems(page, size, roomNumber);
         return new ResponseResult<>(true, "查询成功", pageBean);
+    }
+
+    @ApiOperation(value = "退房接口", notes = "退房接口（需要订单项id ）")
+    @GetMapping("/checkOutRoom/{itemId}")
+    public ResponseResult<Void> checkOutRoom(@PathVariable String itemId) {
+        if (StringUtils.isBlank(itemId)) {
+            return new ResponseResult<>(false, "退房失败，无法获取订单项id");
+        }
+        boolean aBoolean = itemService.checkOutRoom(itemId);
+        if (aBoolean) {
+            return new ResponseResult<>(true, "退房成功");
+        }
+        return new ResponseResult<>(false, "退房失败");
     }
 }

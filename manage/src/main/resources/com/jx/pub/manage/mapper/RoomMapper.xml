@@ -45,4 +45,16 @@
     <select id="getRoomsByTypeId" resultType="com.jx.pub.common.pojo.Room">
         SELECT * FROM room WHERE type_id = #{typeId}
     </select>
+
+    <select id="getLodgersByRoomId" resultType="com.jx.pub.common.pojo.Lodger">
+        SELECT l.* FROM lodger l,room r,order_item oi
+        WHERE oi.item_status = '0' AND oi.room_id = r.room_id AND oi.item_id = l.order_item_id
+        AND oi.room_id = #{roomId}
+    </select>
+
+    <update id="updateRoomStatusById">
+        UPDATE room SET
+        room_status = #{status} AND room_update_time = #{updateTime}
+        WHERE room_id = #{roomId}
+    </update>
 </mapper>

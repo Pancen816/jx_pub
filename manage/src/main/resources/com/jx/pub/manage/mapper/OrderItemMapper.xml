@@ -20,4 +20,19 @@
             </if>
         </where>
     </select>
+
+    <select id="getOrderItemById" resultType="com.jx.pub.common.pojo.OrderItem">
+        SELECT * FROM order_item WHERE item_id = #{itemId}
+    </select>
+
+    <update id="updateItemStatusById">
+        UPDATE order_item SET
+        item_status = #{orderItem.itemStatus},  item_update_time = #{orderItem.itemUpdateTime}
+        WHERE item_id = #{orderItem.itemId}
+    </update>
+
+    <select id="getOrderRestCountByOrderId" resultType="int">
+        SELECT COUNT(*) FROM order_item
+        WHERE order_id = #{orderId} AND item_status = '0'
+    </select>
 </mapper>

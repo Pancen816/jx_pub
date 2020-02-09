@@ -52,4 +52,10 @@
         SELECT * FROM orders WHERE order_id = #{orderId}
     </select>
 
+    <update id="updateOrderStatusById">
+        UPDATE orders SET
+        order_status = #{status}, order_update_time = #{updateTime}
+        WHERE order_id = #{orderId}
+    </update>
+
 </mapper>

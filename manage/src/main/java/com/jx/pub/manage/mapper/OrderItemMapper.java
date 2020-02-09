@@ -30,4 +30,28 @@ public interface OrderItemMapper {
      * @return
      */
     Page<OrderItem> getOrderItems(@Param("roomNumber") String roomNumber);
+
+    /**
+     * 根据id获取订单项
+     *
+     * @param itemId
+     * @return
+     */
+    OrderItem getOrderItemById(@Param("itemId") String itemId);
+
+    /**
+     * 更新订单项状态
+     *
+     * @param orderItem
+     * @return
+     */
+    int updateItemStatusById(@Param("orderItem") OrderItem orderItem);
+
+    /**
+     * 获取该订单下剩余未退房订单项的数量
+     *
+     * @param orderId
+     * @return
+     */
+    int getOrderRestCountByOrderId(@Param("orderId") String orderId);
 }
