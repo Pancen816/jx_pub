@@ -59,7 +59,7 @@ public class RoomType implements Serializable {
     /**
      * 是否有早餐（0:无，1有）
      */
-    @ApiModelProperty(value = "是否有早餐")
+    @ApiModelProperty(value = "是否有早餐（0:无，1有）")
     private String typeBreakfast;
 
     /**
@@ -101,9 +101,9 @@ public class RoomType implements Serializable {
     private Integer typeRestRoomCount;
 
     /**
-     * 关联房间
+     * 所属房间集合
      */
-    @ApiModelProperty(value = "关联房间")
+    @ApiModelProperty(value = "所属房间集合")
     List<Room> roomList;
 
     private static final long serialVersionUID = -8681146305242423028L;
