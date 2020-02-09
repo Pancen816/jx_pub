@@ -83,9 +83,9 @@ public class RoomType implements Serializable {
     // --------------------------------
 
     /**
-     * 预定房间数
+     * 已预定房间数
      */
-    @ApiModelProperty(value = "预定房间数")
+    @ApiModelProperty(value = "已预定房间数")
     private Integer typeOrderSum;
 
     /**
@@ -97,7 +97,7 @@ public class RoomType implements Serializable {
     /**
      * 剩余房间数（房间总数-预定房间数）
      */
-    @ApiModelProperty(value = "房间总数（房间总数-预定房间数）")
+    @ApiModelProperty(value = "剩余房间数（房间总数-预定房间数）")
     private Integer typeRestRoomCount;
 
     /**
