@@ -105,6 +105,20 @@ public class RoomTypeController {
         return new ResponseResult<>(false, "添加失败");
     }
 
+    @ApiOperation(value = "根据id获取房型信息", notes = "根据id获取房型信息")
+    @GetMapping("/getRoomTypeById/{typeId}")
+    public ResponseResult<RoomType> getRoomTypeById(@PathVariable("typeId") String typeId){
+        if(StringUtils.isBlank(typeId)){
+            return new ResponseResult<>(false, "获取不到房型id");
+        }
+        RoomType roomType = roomTypeService.getRoomTypeById(typeId);
+        if(null != roomType){
+            return new ResponseResult<>(true,"查询成功",roomType);
+        }
+        return new ResponseResult<>(false, "查询失败");
+    }
+
+
 
     @ApiOperation(value = "修改房型", notes = "修改房型")
     @ApiImplicitParams({

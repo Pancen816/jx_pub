@@ -51,4 +51,8 @@
     <select id="getTypeMaxPeopleById" resultType="int">
         SELECT type_max_people FROM room_type WHERE type_id = #{typeId}
     </select>
+
+    <select id="getRoomTypeById" resultType="com.jx.pub.common.pojo.RoomType">
+        SELECT * FROM room_type WHERE type_id = #{typeId}
+    </select>
 </mapper>

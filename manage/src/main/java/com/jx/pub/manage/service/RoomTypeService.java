@@ -176,4 +176,8 @@ public class RoomTypeService {
     public int getTypeMaxPeopleById(String typeId) {
         return roomTypeMapper.getTypeMaxPeopleById(typeId);
     }
+
+    public RoomType getRoomTypeById(String typeId) {
+        return roomTypeMapper.getRoomTypeById(typeId);
+    }
 }

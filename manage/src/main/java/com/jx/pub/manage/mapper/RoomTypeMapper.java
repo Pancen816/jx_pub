@@ -70,4 +70,12 @@ public interface RoomTypeMapper {
      * @return
      */
     int getTypeMaxPeopleById(@Param("typeId") String typeId);
+
+    /**
+     * 根据id查询房型信息
+     *
+     * @param typeId
+     * @return
+     */
+    RoomType getRoomTypeById(@Param("typeId") String typeId);
 }
