@@ -106,4 +106,12 @@ public interface RoomMapper {
      * @return
      */
     int updateRoomStatusById(@Param("roomId") String roomId, @Param("status") String status, @Param("updateTime") String updateTime);
+
+    /**
+     * 根据房间id 获取房间信息
+     *
+     * @param roomId
+     * @return
+     */
+    Room getRoomByRoomId(@Param("roomId") String roomId);
 }

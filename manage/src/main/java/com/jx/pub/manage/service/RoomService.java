@@ -117,4 +117,14 @@ public class RoomService {
     public List<Lodger> getLodgersByRoomId(String roomId) {
         return roomMapper.getLodgersByRoomId(roomId);
     }
+
+    /**
+     * 根据房间id 获取房间信息
+     *
+     * @param roomId
+     * @return
+     */
+    public Room getRoomByRoomId(String roomId) {
+        return roomMapper.getRoomByRoomId(roomId);
+    }
 }

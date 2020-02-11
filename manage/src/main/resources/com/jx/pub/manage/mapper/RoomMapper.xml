@@ -57,4 +57,8 @@
         room_status = #{status} AND room_update_time = #{updateTime}
         WHERE room_id = #{roomId}
     </update>
+
+    <select id="getRoomByRoomId" resultType="com.jx.pub.common.pojo.Room">
+        SELECT * FROM room WHERE room_id = #{roomId}
+    </select>
 </mapper>

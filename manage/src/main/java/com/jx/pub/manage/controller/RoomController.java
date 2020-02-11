@@ -78,6 +78,19 @@ public class RoomController {
         return new ResponseResult<>(false, "添加失败");
     }
 
+    @ApiOperation(value = "根据id获取房间信息", notes = "根据id获取房间信息")
+    @GetMapping("/getRoomByRoomId/{roomId}")
+    public ResponseResult<Room> getRoomByRoomId(@PathVariable("roomId") String roomId){
+        if(StringUtils.isBlank(roomId)){
+            return new ResponseResult<>(false, "获取不到房间id");
+        }
+        Room room = roomService.getRoomByRoomId(roomId);
+        if(null != room){
+            return new ResponseResult<>(true,"查询成功",room);
+        }
+        return new ResponseResult<>(false, "查询失败");
+    }
+
     @ApiOperation(value = "更新房间", notes = "更新房间")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "roomId", value = "房间id", required = true, dataType = "String", paramType = "query"),
