@@ -41,7 +41,7 @@ public class RoomTypeController {
             @ApiImplicitParam(name = "beginTime", value = "开始时间(默认为当日14点)", required = false, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "endTime", value = "结束时间(默认为明日12点)", required = false, dataType = "String", paramType = "query"),
     })
-    @GetMapping("/getRoomTypeList")
+    @PostMapping("/getRoomTypeList")
     public ResponseResult<List<RoomType>> getRoomTypeList(String beginTime, String endTime) {
         if (StringUtils.isBlank(beginTime) || StringUtils.isBlank(endTime)) {
             beginTime = TimeUtil.getRoomBeginTime();
