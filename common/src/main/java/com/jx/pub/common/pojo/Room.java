@@ -49,5 +49,11 @@ public class Room implements Serializable {
     @ApiModelProperty(value = "修改时间")
     private String roomUpdateTime;
 
+    /**
+     * 房型名称
+     */
+    @ApiModelProperty(value = "房型名称")
+    private String typeName;
+
     private static final long serialVersionUID = 5078352916793394196L;
 }

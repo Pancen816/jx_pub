@@ -3,11 +3,12 @@
 <mapper namespace="com.jx.pub.manage.mapper.RoomMapper">
 
     <select id="getRoomListByCon" resultType="com.jx.pub.common.pojo.Room">
-        SELECT * FROM room
+        SELECT r.*,rt.type_name FROM room r,room_type rt
         <where>
-            <if test="con.typeId != null and con.typeId != ''">type_id = #{con.typeId}</if>
-            <if test="con.roomNumber != null and con.roomNumber != ''">AND room_number LIKE CONCAT('%',#{con.roomNumber},'%') </if>
-            <if test="con.roomStatus != null and con.roomStatus != ''">AND room_status = #{con.roomStatus}</if>
+            r.type_id = rt.type_id
+            <if test="con.typeId != null and con.typeId != ''">r.type_id = #{con.typeId}</if>
+            <if test="con.roomNumber != null and con.roomNumber != ''">AND r.room_number LIKE CONCAT('%',#{con.roomNumber},'%') </if>
+            <if test="con.roomStatus != null and con.roomStatus != ''">AND r.room_status = #{con.roomStatus}</if>
         </where>
     </select>
 
