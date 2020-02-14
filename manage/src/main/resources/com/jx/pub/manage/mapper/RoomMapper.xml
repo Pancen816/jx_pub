@@ -6,7 +6,7 @@
         SELECT r.*,rt.type_name FROM room r,room_type rt
         <where>
             r.type_id = rt.type_id
-            <if test="con.typeId != null and con.typeId != ''">r.type_id = #{con.typeId}</if>
+            <if test="con.typeId != null and con.typeId != ''">AND r.type_id = #{con.typeId}</if>
             <if test="con.roomNumber != null and con.roomNumber != ''">AND r.room_number LIKE CONCAT('%',#{con.roomNumber},'%') </if>
             <if test="con.roomStatus != null and con.roomStatus != ''">AND r.room_status = #{con.roomStatus}</if>
         </where>
