@@ -178,6 +178,9 @@ public class RoomTypeService {
     }
 
     public RoomType getRoomTypeById(String typeId) {
-        return roomTypeMapper.getRoomTypeById(typeId);
+        RoomType roomType = roomTypeMapper.getRoomTypeById(typeId);
+        List<Room> rooms = roomMapper.getRoomsByTypeId(roomType.getTypeId());
+        roomType.setRoomList(rooms);
+        return roomType;
     }
 }
