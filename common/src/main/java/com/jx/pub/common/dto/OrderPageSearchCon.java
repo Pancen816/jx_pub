@@ -56,9 +56,9 @@ public class OrderPageSearchCon implements Serializable {
     private String orderStatus;
 
     /**
-     * 订单来源（0：线上；1：线下；）
+     * 订单来源（0：线下；1：线上；）
      */
-    @ApiModelProperty(value = "订单来源（0：线上；1：线下；）")
+    @ApiModelProperty(value = "订单来源（0：线下；1：线上；）")
     private String orderSource;
 
     /**
