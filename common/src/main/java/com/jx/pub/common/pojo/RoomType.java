@@ -21,9 +21,9 @@ public class RoomType implements Serializable {
     private String typeId;
 
     /**
-     * 类型名称
+     * 房型名称
      */
-    @ApiModelProperty(value = "类型名称（10字内）")
+    @ApiModelProperty(value = "房型名称（10字内）")
     private String typeName;
 
     /**

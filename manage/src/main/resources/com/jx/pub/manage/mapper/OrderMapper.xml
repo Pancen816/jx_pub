@@ -22,9 +22,9 @@
     </insert>
 
     <select id="getOrderList" resultType="com.jx.pub.common.pojo.Orders">
-        SELECT * FROM orders
+        SELECT o.*,rt.type_name FROM orders o,room_type rt
         <where>
-             ( order_status = '0' OR order_status = '1' )
+             ( order_status = '0' OR order_status = '1' ) AND o.type_id = rt.type_id
             <if test="con.typeId != null and con.typeId != ''">AND type_id = #{con.typeId}</if>
             <if test="con.lodgerName != null and con.lodgerName != ''">AND lodger_name LIKE CONCAT('%',#{con.lodgerName},'%')</if>
             <if test="con.lodgerPhone != null and con.lodgerPhone != ''">AND lodger_phone LIKE CONCAT('%',#{con.lodgerPhone},'%')</if>

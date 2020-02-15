@@ -103,5 +103,11 @@ public class Orders implements Serializable {
     @ApiModelProperty(value = "更新时间")
     private String orderUpdateTime;
 
+    /**
+     * 房型名称
+     */
+    @ApiModelProperty(value = "房型名称（10字内）")
+    private String typeName;
+
     private static final long serialVersionUID = -2556424939890132244L;
 }
