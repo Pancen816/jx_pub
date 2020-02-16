@@ -155,7 +155,7 @@ public class OrderController {
                 || StringUtils.isBlank(order.getOrderRealityPrice()) || order.getOrderItems().size() < 1) {
             return "开单失败，订单信息缺少必要参数";
         }
-        if ("0000".equals(order.getUserId())) {
+        if (!"0000".equals(order.getUserId())) {
             if (StringUtils.isBlank(order.getOrderId())) {
                 return "开单失败，线上订单开单时需要订单id";
             }

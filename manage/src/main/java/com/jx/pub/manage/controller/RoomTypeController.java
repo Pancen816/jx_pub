@@ -106,12 +106,16 @@ public class RoomTypeController {
     }
 
     @ApiOperation(value = "根据id获取房型信息", notes = "根据id获取房型信息")
-    @GetMapping("/getRoomTypeById/{typeId}")
-    public ResponseResult<RoomType> getRoomTypeById(@PathVariable("typeId") String typeId){
+    @PostMapping("/getRoomTypeById")
+    public ResponseResult<RoomType> getRoomTypeById(String typeId,String beginTime,String endTime){
         if(StringUtils.isBlank(typeId)){
             return new ResponseResult<>(false, "获取不到房型id");
         }
-        RoomType roomType = roomTypeService.getRoomTypeById(typeId);
+        if(StringUtils.isBlank(beginTime) || StringUtils.isBlank(endTime)){
+            beginTime = TimeUtil.getRoomBeginTime();
+            endTime = TimeUtil.getRoomEndTime();
+        }
+        RoomType roomType = roomTypeService.getRoomTypeById(typeId,beginTime,endTime);
         if(null != roomType){
             return new ResponseResult<>(true,"查询成功",roomType);
         }

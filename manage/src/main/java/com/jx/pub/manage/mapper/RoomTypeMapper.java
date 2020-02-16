@@ -75,7 +75,9 @@ public interface RoomTypeMapper {
      * 根据id查询房型信息
      *
      * @param typeId
+     * @param beginTime
+     * @param endTime
      * @return
      */
-    RoomType getRoomTypeById(@Param("typeId") String typeId);
+    RoomType getRoomTypeById(@Param("typeId") String typeId,@Param("beginTime") String beginTime,@Param("endTime") String endTime);
 }

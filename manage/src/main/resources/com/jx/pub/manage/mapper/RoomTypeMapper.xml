@@ -53,6 +53,23 @@
     </select>
 
     <select id="getRoomTypeById" resultType="com.jx.pub.common.pojo.RoomType">
-        SELECT * FROM room_type WHERE type_id = #{typeId}
+        SELECT
+        rt.*,
+        IFNULL( o.order_sum, 0 ) type_order_sum,
+        IFNULL( r.room_count, 0 ) type_room_count
+        FROM room_type rt
+        LEFT JOIN (
+        SELECT type_id, come_time, leave_time, SUM( reserve_number ) 'order_sum' FROM orders
+        WHERE
+        order_status = '0'
+        AND (
+        ( come_time &lt; #{beginTime} AND leave_time &gt; #{beginTime} )
+        OR ( come_time &gt;= #{beginTime} AND leave_time &lt;= #{endTime} )
+        OR ( come_time &lt; #{endTime} AND leave_time &gt; #{endTime} )
+        OR ( come_time &lt;= #{beginTime} AND leave_time &gt;= #{endTime} )
+        ) GROUP BY type_id
+        ) o ON rt.type_id = o.type_id
+        LEFT JOIN ( SELECT type_id, COUNT(*) 'room_count' FROM room GROUP BY type_id ) r ON r.type_id = rt.type_id
+        WHERE rt.type_id = #{typeId}
     </select>
 </mapper>

@@ -177,8 +177,17 @@ public class RoomTypeService {
         return roomTypeMapper.getTypeMaxPeopleById(typeId);
     }
 
-    public RoomType getRoomTypeById(String typeId) {
-        RoomType roomType = roomTypeMapper.getRoomTypeById(typeId);
+    /**
+     * 根据id获取房型信息
+     *
+     * @param typeId
+     * @param beginTime
+     * @param endTime
+     * @return
+     */
+    public RoomType getRoomTypeById(String typeId, String beginTime, String endTime) {
+        RoomType roomType = roomTypeMapper.getRoomTypeById(typeId,beginTime,endTime);
+        roomType.setTypeRestRoomCount(roomType.getTypeRoomCount() - roomType.getTypeOrderSum());
         List<Room> rooms = roomMapper.getRoomsByTypeId(roomType.getTypeId());
         roomType.setRoomList(rooms);
         return roomType;
