@@ -54,4 +54,20 @@ public interface OrderItemMapper {
      * @return
      */
     int getOrderRestCountByOrderId(@Param("orderId") String orderId);
+
+    /**
+     * 根据订单号获取对应房间号
+     *
+     * @param orderId
+     * @return
+     */
+    List<String> getRoomListByOrderId(@Param("orderId") String orderId);
+
+    /**
+     * 根据订单id获取订单项信息
+     *
+     * @param orderId
+     * @return
+     */
+    List<OrderItem> getOrderLodgerByOrderId(@Param("orderId") String orderId);
 }

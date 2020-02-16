@@ -21,4 +21,12 @@ public interface LodgerMapper {
      * @return
      */
     int addLodgers(@Param("lodgers") List<Lodger> lodgers);
+
+    /**
+     * 根据订单项id 获取入住人信息
+     *
+     * @param itemId
+     * @return
+     */
+    List<Lodger> getLodgersByItemId(@Param("itemId") String itemId);
 }

@@ -9,4 +9,8 @@
             #{lodger.orderItemId},#{lodger.lodgerCreatTime},#{lodger.lodgerUpdateTime})
         </foreach>
     </insert>
+
+    <select id="getLodgersByItemId" resultType="com.jx.pub.common.pojo.Lodger">
+        SELECT * FROM lodger WHERE order_item_id = #{itemId}
+    </select>
 </mapper>

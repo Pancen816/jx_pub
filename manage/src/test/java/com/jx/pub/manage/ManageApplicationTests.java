@@ -41,7 +41,7 @@ public class ManageApplicationTests {
     @Test
     public void testTime() {
         String beginTime = TimeUtil.getRoomBeginTime();
-        String endTime = TimeUtil.getRoomEndTime();
+        String endTime = "2020-02-19 00:00:00";
         System.out.println(beginTime.compareTo(endTime)); // 小于 -1
         System.out.println(endTime.compareTo(endTime)); // 等于 0
         System.out.println(endTime.compareTo(beginTime)); // 大于 1

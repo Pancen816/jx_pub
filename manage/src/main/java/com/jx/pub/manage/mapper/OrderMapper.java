@@ -7,6 +7,8 @@ import com.jx.pub.common.pojo.Orders;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @author Faxon
  * @version 1.0
@@ -81,4 +83,12 @@ public interface OrderMapper {
      * @return
      */
     int updateOrderStatusById(@Param("orderId") String orderId, @Param("status") String status, @Param("updateTime") String updateTime);
+
+    /**
+     * 获取订单列表
+     *
+     * @param con
+     * @return
+     */
+    List<Orders> getOrderListForExport(@Param("con") OrderPageSearchCon con);
 }

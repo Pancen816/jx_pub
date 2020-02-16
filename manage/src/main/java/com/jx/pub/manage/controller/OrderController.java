@@ -8,16 +8,21 @@ import com.jx.pub.common.pojo.Lodger;
 import com.jx.pub.common.pojo.OrderItem;
 import com.jx.pub.common.pojo.Orders;
 import com.jx.pub.common.util.IDUtil;
+import com.jx.pub.common.util.POIUtil;
 import com.jx.pub.common.util.TimeUtil;
 import com.jx.pub.manage.service.OrderService;
 import com.jx.pub.manage.service.RoomTypeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Faxon
@@ -35,6 +40,13 @@ public class OrderController {
 
     @Resource
     RoomTypeService roomTypeService;
+
+    /**
+     * 列表导出常量
+     */
+    public static final String ORDERS_SHEETNAME = "订单列表";
+    public static final String[] ORDERS_HEADERSNAME = {"序号", "房型", "房号", "开房人姓名", "创建时间", "入住时间", "退房时间", "订单来源", "实收价格", "订单状态"};
+    public static final String[] ORDERS_KEYS = {"typeName", "roomNumbers", "lodgerName", "orderCreatTime", "comeTime", "leaveTime", "orderSource", "orderRealityPrice", "orderStatus"};
 
     @ApiOperation(value = "开单", notes = "开单")
     @PostMapping("/addOrder")
@@ -71,13 +83,36 @@ public class OrderController {
         return new ResponseResult<>(false, "删除订单失败");
     }
 
+    @ApiOperation(value = "根据id获取订单信息", notes = "根据id获取订单信息")
     @GetMapping("/getOrderById/{orderId}")
     public ResponseResult<Orders> getOrderById(@PathVariable("orderId") String orderId) {
         Orders orders = orderService.getOrderById(orderId);
         if (null == orders) {
             return new ResponseResult<>(false, "查询订单失败");
         }
-        return new ResponseResult<>(true, "查询订单成功",orders);
+        return new ResponseResult<>(true, "查询订单成功", orders);
+    }
+
+    @ApiOperation(value = "根据id获取相关订单项信息", notes = "根据id获取相关订单项信息")
+    @GetMapping("/getOrderLodgerById/{orderId}")
+    public ResponseResult<List<OrderItem>> getOrderLodgerById(@PathVariable("orderId") String orderId) {
+        List<OrderItem> orderItems = orderService.getOrderLodgerById(orderId);
+        if (null == orderItems) {
+            return new ResponseResult<>(false, "查询订单项失败");
+        }
+        return new ResponseResult<>(true, "查询订单项成功", orderItems);
+    }
+
+    @ApiOperation(value = "订单导出", notes = "订单导出")
+    @GetMapping("/exportOrdersByCon")
+    public void exportOrdersByCon(OrderPageSearchCon con, HttpServletResponse response) throws IOException {
+        List<Map<String, Object>> data = orderService.getOrdersMap(con);
+
+        String fileName = ORDERS_SHEETNAME + TimeUtil.getNow("yyyyMMdd");
+
+        SXSSFWorkbook export = POIUtil.export(fileName, data, ORDERS_HEADERSNAME, ORDERS_KEYS);
+
+        POIUtil.writeTo(fileName, export, response);
     }
 
     /**
@@ -100,8 +135,8 @@ public class OrderController {
             }
             String beginTime = con.getBeginTime();
             String endTime = con.getEndTime();
-            if (StringUtils.isNotBlank(beginTime) && StringUtils.isNotBlank(endTime) && beginTime.compareTo(endTime) != -1) {
-                return "搜索失败，时间参数非法（开始时间大于结束时间）";
+            if (StringUtils.isNotBlank(beginTime) && StringUtils.isNotBlank(endTime) && beginTime.compareTo(endTime) >= 0) {
+                return "搜索失败，时间参数非法（开始时间应小于结束时间）";
             }
         }
         return null;

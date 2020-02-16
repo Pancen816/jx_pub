@@ -35,4 +35,14 @@
         SELECT COUNT(*) FROM order_item
         WHERE order_id = #{orderId} AND item_status = '0'
     </select>
+
+    <select id="getRoomListByOrderId" resultType="java.lang.String">
+        SELECT r.room_number FROM order_item oi,room r
+        WHERE oi.room_id = r.room_id AND oi.order_id = #{orderId}
+    </select>
+
+    <select id="getOrderLodgerByOrderId" resultType="com.jx.pub.common.pojo.OrderItem">
+        SELECT oi.*,r.room_number,rt.type_name FROM order_item oi, room r, room_type rt
+        WHERE oi.room_id = r.room_id AND r.type_id = rt.type_id AND oi.order_id = #{orderId}
+    </select>
 </mapper>

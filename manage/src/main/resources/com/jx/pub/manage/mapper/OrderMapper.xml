@@ -58,4 +58,20 @@
         WHERE order_id = #{orderId}
     </update>
 
+    <select id="getOrderListForExport" resultType="com.jx.pub.common.pojo.Orders">
+        SELECT o.*,rt.type_name FROM orders o,room_type rt
+        <where>
+            ( order_status = '0' OR order_status = '1' OR order_status = '2') AND o.type_id = rt.type_id
+            <if test="con.typeId != null and con.typeId != ''">AND type_id = #{con.typeId}</if>
+            <if test="con.lodgerName != null and con.lodgerName != ''">AND lodger_name LIKE CONCAT('%',#{con.lodgerName},'%')</if>
+            <if test="con.lodgerPhone != null and con.lodgerPhone != ''">AND lodger_phone LIKE CONCAT('%',#{con.lodgerPhone},'%')</if>
+            <if test="con.orderStatus != null and con.orderStatus != ''">AND order_status = #{con.orderStatus}</if>
+            <if test="con.orderSource == '0'.toString() ">AND user_id = '0000'</if>
+            <if test="con.orderSource == '1'.toString() ">AND user_id != '0000'</if>
+            <if test="con.beginTime != null and con.beginTime != '' and con.endTime != null and con.endTime != ''">
+                AND order_creat_time &lt;= #{con.endTime} AND order_creat_time &gt; #{con.beginTime}
+            </if>
+        </where>
+    </select>
+
 </mapper>
