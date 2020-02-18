@@ -8,6 +8,7 @@ import com.jx.pub.common.dto.PageBean;
 import com.jx.pub.common.pojo.Lodger;
 import com.jx.pub.common.pojo.OrderItem;
 import com.jx.pub.common.pojo.Orders;
+import com.jx.pub.common.util.IDUtil;
 import com.jx.pub.common.util.TimeUtil;
 import com.jx.pub.manage.mapper.LodgerMapper;
 import com.jx.pub.manage.mapper.OrderItemMapper;
@@ -47,6 +48,7 @@ public class OrderService {
     public boolean addOrder(OfflineOrder order) {
         int i;
         if (StringUtils.isBlank(order.getOrderId())) {
+            order.setOrderId(IDUtil.getUUID());
             i = orderMapper.addOrder(order);
         } else {
             i = orderMapper.updateOrderById(order);
@@ -54,6 +56,7 @@ public class OrderService {
 
         if (i == 1) {
             List<OrderItem> orderItems = order.getOrderItems();
+            orderItems.forEach(item -> item.setOrderId(order.getOrderId()));
             int j = orderItemMapper.addOrderItems(orderItems);
             if (j > 0) {
                 for (OrderItem item : orderItems) {
@@ -61,8 +64,9 @@ public class OrderService {
                     lodgerMapper.addLodgers(item.getLodgers());
                 }
             }
+            return true;
         }
-        return true;
+        return false;
     }
 
     public PageBean<Orders> getOrderList(OrderPageSearchCon con) {

@@ -10,6 +10,7 @@
             <if test="con.roomNumber != null and con.roomNumber != ''">AND r.room_number LIKE CONCAT('%',#{con.roomNumber},'%') </if>
             <if test="con.roomStatus != null and con.roomStatus != ''">AND r.room_status = #{con.roomStatus}</if>
         </where>
+        order by r.type_id
     </select>
 
     <select id="getCountByRoomNumber" resultType="int">
@@ -55,7 +56,7 @@
 
     <update id="updateRoomStatusById">
         UPDATE room SET
-        room_status = #{status} AND room_update_time = #{updateTime}
+        room_status = #{status}, room_update_time = #{updateTime}
         WHERE room_id = #{roomId}
     </update>
 

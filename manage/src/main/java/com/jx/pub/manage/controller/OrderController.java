@@ -160,7 +160,6 @@ public class OrderController {
                 return "开单失败，线上订单开单时需要订单id";
             }
         } else {
-            order.setOrderId(IDUtil.getUUID());
             order.setOrderCreatTime(TimeUtil.getNowTime());
         }
         order.setOrderShowStatus("0");
@@ -181,7 +180,6 @@ public class OrderController {
                 return "开单失败，第" + (i + 1) + "条订单项 入住人数 超过 房型限住人数";
             }
             item.setItemId(IDUtil.getUUID());
-            item.setOrderId(order.getOrderId());
             item.setRealityComeTime(TimeUtil.getNowTime());
             item.setRealityLeaveTime(order.getLeaveTime());
             item.setItemStatus("0");

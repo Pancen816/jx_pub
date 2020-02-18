@@ -11,7 +11,7 @@
 	LEFT JOIN (
             SELECT type_id, come_time, leave_time, SUM( reserve_number ) 'order_sum' FROM orders
             WHERE
-            order_status = '0'
+            order_status = '0' OR order_status = '1'
             AND (
                 ( come_time &lt; #{beginTime} AND leave_time &gt; #{beginTime} )
                 OR ( come_time &gt;= #{beginTime} AND leave_time &lt;= #{endTime} )
@@ -61,7 +61,7 @@
         LEFT JOIN (
         SELECT type_id, come_time, leave_time, SUM( reserve_number ) 'order_sum' FROM orders
         WHERE
-        order_status = '0'
+        order_status = '0' OR order_status = '1'
         AND (
         ( come_time &lt; #{beginTime} AND leave_time &gt; #{beginTime} )
         OR ( come_time &gt;= #{beginTime} AND leave_time &lt;= #{endTime} )

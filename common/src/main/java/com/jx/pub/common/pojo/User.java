@@ -2,8 +2,9 @@ package com.jx.pub.common.pojo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * @author: Faxon
@@ -49,9 +50,9 @@ public class User implements Serializable {
     private String userPhone;
 
     /**
-     * 性别
+     * 性别(0:男，1:女)
      */
-    @ApiModelProperty(value = "性别")
+    @ApiModelProperty(value = "性别(0:男，1:女)")
     private String userSex;
 
     /**
