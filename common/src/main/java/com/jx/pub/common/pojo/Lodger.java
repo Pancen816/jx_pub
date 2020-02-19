@@ -55,5 +55,11 @@ public class Lodger implements Serializable {
     @ApiModelProperty(value = "更新时间")
     private String lodgerUpdateTime;
 
+    /**
+     * 退房时间（yyyy-MM-dd 12:00:00）
+     */
+    @ApiModelProperty(value = "预计退房时间（yyyy-MM-dd 12:00:00）")
+    private String leaveTime;
+
     private static final long serialVersionUID = -5858166733322294952L;
 }

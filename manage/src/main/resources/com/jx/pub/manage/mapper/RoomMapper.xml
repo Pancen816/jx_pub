@@ -49,8 +49,8 @@
     </select>
 
     <select id="getLodgersByRoomId" resultType="com.jx.pub.common.pojo.Lodger">
-        SELECT l.* FROM lodger l,room r,order_item oi
-        WHERE oi.item_status = '0' AND oi.room_id = r.room_id AND oi.item_id = l.order_item_id
+        SELECT l.*,o.leave_time FROM lodger l,room r,order_item oi,orders o
+        WHERE oi.item_status = '0' AND oi.room_id = r.room_id AND oi.item_id = l.order_item_id AND o.order_id = oi.order_id
         AND oi.room_id = #{roomId}
     </select>
 

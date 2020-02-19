@@ -137,7 +137,7 @@ public class RoomController {
     }
 
     @ApiOperation(value = "根据房间id获取入住人信息", notes = "根据房间id获取入住人信息")
-    @GetMapping("getLodgersByRoomId/{roomId}")
+    @GetMapping("/getLodgersByRoomId/{roomId}")
     public ResponseResult<List<Lodger>> getLodgersByRoomId(@PathVariable("roomId") String roomId) {
         if (StringUtils.isBlank(roomId)) {
             return new ResponseResult<>(false, "查询入住人失败,无法获取房间id");

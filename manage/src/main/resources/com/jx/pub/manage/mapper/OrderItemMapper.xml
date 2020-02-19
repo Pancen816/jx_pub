@@ -19,6 +19,7 @@
                 AND r.room_number LIKE CONCAT('%',#{roomNumber},'%')
             </if>
         </where>
+        ORDER BY oi.item_creat_time
     </select>
 
     <select id="getOrderItemById" resultType="com.jx.pub.common.pojo.OrderItem">
