@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jx.pub.services.mapper.RoomTypeMapper">
+
+    <select id="getRoomTypeList" resultType="com.jx.pub.common.pojo.RoomType">
+    SELECT
+	rt.*,
+	IFNULL( o.order_sum, 0 ) type_order_sum,
+	IFNULL( r.room_count, 0 ) type_room_count
+    FROM room_type rt
+	LEFT JOIN (
+            SELECT type_id, come_time, leave_time, SUM( reserve_number ) 'order_sum' FROM orders
+            WHERE
+            order_status = '0' OR order_status = '1'
+            AND (
+                ( come_time &lt; #{beginTime} AND leave_time &gt; #{beginTime} )
+                OR ( come_time &gt;= #{beginTime} AND leave_time &lt;= #{endTime} )
+                OR ( come_time &lt; #{endTime} AND leave_time &gt; #{endTime} )
+                OR ( come_time &lt;= #{beginTime} AND leave_time &gt;= #{endTime} )
+            ) GROUP BY type_id
+    ) o ON rt.type_id = o.type_id
+	LEFT JOIN ( SELECT type_id, COUNT(*) 'room_count' FROM room GROUP BY type_id ) r ON r.type_id = rt.type_id
+    ORDER BY rt.type_update_time DESC
+    </select>
+
+    <insert id="addRoomType">
+        INSERT INTO room_type VALUES
+        (#{roomType.typeId},#{roomType.typeName},#{roomType.typePic},#{roomType.typePrice},#{roomType.typeArea},#{roomType.typeWindow},
+        #{roomType.typeMaxPeople},#{roomType.typeBreakfast},#{param1.typeBed},#{roomType.typeCreatTime},#{roomType.typeUpdateTime})
+    </insert>
+
+    <update id="updateRoomTypeById">
+        UPDATE room_type SET
+        type_name = #{roomType.typeName},type_pic = #{roomType.typePic},type_price = #{roomType.typePrice},
+        type_area = #{roomType.typeArea},type_window = #{roomType.typeWindow},type_max_people = #{roomType.typeMaxPeople},
+        type_breakfast = #{roomType.typeBreakfast},type_bed = #{roomType.typeBed},type_update_time = #{roomType.typeUpdateTime}
+        WHERE type_id = #{roomType.typeId}
+    </update>
+
+    <delete id="deleteRoomTypeById">
+        DELETE FROM room_type WHERE type_id = #{typeId}
+    </delete>
+
+    <select id="getCountByTypeName" resultType="int">
+        SELECT COUNT(*) FROM  room_type WHERE type_name = #{typeName}
+    </select>
+
+    <select id="getTypeNameById" resultType="java.lang.String">
+        SELECT type_name FROM room_type WHERE type_id = #{typeId}
+    </select>
+
+    <select id="getTypeMaxPeopleById" resultType="int">
+        SELECT type_max_people FROM room_type WHERE type_id = #{typeId}
+    </select>
+
+    <select id="getRoomTypeById" resultType="com.jx.pub.common.pojo.RoomType">
+        SELECT
+        rt.*,
+        IFNULL( o.order_sum, 0 ) type_order_sum,
+        IFNULL( r.room_count, 0 ) type_room_count
+        FROM room_type rt
+        LEFT JOIN (
+        SELECT type_id, come_time, leave_time, SUM( reserve_number ) 'order_sum' FROM orders
+        WHERE
+        order_status = '0' OR order_status = '1'
+        AND (
+        ( come_time &lt; #{beginTime} AND leave_time &gt; #{beginTime} )
+        OR ( come_time &gt;= #{beginTime} AND leave_time &lt;= #{endTime} )
+        OR ( come_time &lt; #{endTime} AND leave_time &gt; #{endTime} )
+        OR ( come_time &lt;= #{beginTime} AND leave_time &gt;= #{endTime} )
+        ) GROUP BY type_id
+        ) o ON rt.type_id = o.type_id
+        LEFT JOIN ( SELECT type_id, COUNT(*) 'room_count' FROM room GROUP BY type_id ) r ON r.type_id = rt.type_id
+        WHERE rt.type_id = #{typeId}
+    </select>
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jx.pub.services.mapper.OrderItemMapper">
+
+    <insert id="addOrderItems">
+        INSERT INTO order_item VALUES
+        <foreach collection="orderItems" separator="," item="item">
+            (#{item.itemId},#{item.orderId},#{item.roomId},#{item.realityComeTime},#{item.realityLeaveTime},
+            #{item.itemStatus},#{item.itemCreatTime},#{item.itemUpdateTime})
+        </foreach>
+    </insert>
+
+    <select id="getOrderItems" resultType="com.jx.pub.common.pojo.OrderItem">
+        SELECT oi.*, r.room_number,rt.type_name
+        FROM order_item oi, room r, room_type rt
+        <where>
+            oi.room_id = r.room_id AND r.type_id = rt.type_id AND oi.item_status = '0'
+            <if test="roomNumber != null and roomNumber != ''">
+                AND r.room_number LIKE CONCAT('%',#{roomNumber},'%')
+            </if>
+        </where>
+        ORDER BY oi.item_creat_time
+    </select>
+
+    <select id="getOrderItemById" resultType="com.jx.pub.common.pojo.OrderItem">
+        SELECT * FROM order_item WHERE item_id = #{itemId}
+    </select>
+
+    <update id="updateItemStatusById">
+        UPDATE order_item SET
+        item_status = #{orderItem.itemStatus},  item_update_time = #{orderItem.itemUpdateTime}
+        WHERE item_id = #{orderItem.itemId}
+    </update>
+
+    <select id="getOrderRestCountByOrderId" resultType="int">
+        SELECT COUNT(*) FROM order_item
+        WHERE order_id = #{orderId} AND item_status = '0'
+    </select>
+
+    <select id="getRoomListByOrderId" resultType="java.lang.String">
+        SELECT r.room_number FROM order_item oi,room r
+        WHERE oi.room_id = r.room_id AND oi.order_id = #{orderId}
+    </select>
+
+    <select id="getOrderLodgerByOrderId" resultType="com.jx.pub.common.pojo.OrderItem">
+        SELECT oi.*,r.room_number,rt.type_name FROM order_item oi, room r, room_type rt
+        WHERE oi.room_id = r.room_id AND r.type_id = rt.type_id AND oi.order_id = #{orderId}
+    </select>
+</mapper>

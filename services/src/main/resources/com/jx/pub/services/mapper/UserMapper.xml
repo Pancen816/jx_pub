@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jx.pub.services.mapper.UserMapper">
+
+    <select id="getCountByUserNickName" resultType="int">
+        SELECT count(*)
+        FROM user
+        WHERE user_nick_name = #{userNickName}
+    </select>
+
+    <select id="getCountByIdNumber" resultType="int">
+        SELECT count(*)
+        FROM user
+        WHERE user_id_number = #{userIdNumber}
+    </select>
+
+    <insert id="insertUser">
+        INSERT INTO user
+        values (#{user.userId}, #{user.userName}, #{user.userIdNumber}, #{user.userNickName}, #{user.userPassword},
+                #{user.userPhone}, #{user.userSex}, #{user.userCreatTime}, #{user.userUpdateTime})
+    </insert>
+
+    <select id="getUserByUsername" resultType="com.jx.pub.common.pojo.User">
+        SELECT *
+        FROM user
+        WHERE user_phone = #{userName}
+           OR user_nick_name = #{userName}
+    </select>
+
+    <select id="getUserByUserId" resultType="com.jx.pub.common.pojo.User">
+        SELECT *
+        FROM user
+        WHERE user_id = #{userId}
+    </select>
+
+    <update id="updatePasswordById">
+        UPDATE user
+        SET user_password    = #{newPwd},
+            user_update_time = #{updateTime}
+        WHERE user_id = #{userId}
+    </update>
+
+    <update id="updateUserById">
+        UPDATE user
+        SET user_nick_name=#{nickName},
+            user_phone = #{phone},
+            user_update_time = #{updateTime}
+        WHERE user_id = #{userId}
+    </update>
+
+</mapper>

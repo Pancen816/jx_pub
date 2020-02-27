@@ -13,6 +13,8 @@ import java.io.Serializable;
 @ApiModel(value = "com-jx-pub-common-pojo-Order")
 @Data
 public class Orders implements Serializable {
+
+    private static final long serialVersionUID = -2556424939890132244L;
     /**
      * 主键id
      */
@@ -123,6 +125,4 @@ public class Orders implements Serializable {
      */
     @ApiModelProperty(value = "订单所对应的房间号（以‘/’分割）")
     private String roomNumbers;
-
-    private static final long serialVersionUID = -2556424939890132244L;
 }
