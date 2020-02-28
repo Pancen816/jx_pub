@@ -46,7 +46,7 @@
                 AND o.order_creat_time &lt;= #{con.endTime} AND o.order_creat_time &gt; #{con.beginTime}
             </if>
         </where>
-        ORDER BY o.order_creat_time
+        ORDER BY o.order_status DESC,o.order_creat_time
     </select>
 
     <update id="deleteOrderById">
@@ -98,7 +98,7 @@
                 AND o.order_creat_time &lt;= #{con.endTime} AND o.order_creat_time &gt; #{con.beginTime}
             </if>
         </where>
-        ORDER BY o.order_creat_time
+        ORDER BY o.order_status,o.order_creat_time
     </select>
 
     <select id="getNotInOrdersByUserId" resultType="com.jx.pub.common.pojo.Orders">
@@ -109,7 +109,7 @@
           AND o.user_id = #{userId}
           AND o.order_status = '0'
           AND o.order_show_status = '0'
-        ORDER BY o.order_creat_time
+        ORDER BY o.order_status,o.order_creat_time
     </select>
 
     <select id="getHistoryOrdersByUserId" resultType="com.jx.pub.common.pojo.Orders">
@@ -121,7 +121,7 @@
         AND o.order_status != '0'
         AND o.order_status != '3'
         AND o.order_show_status = '0'
-        ORDER BY o.order_creat_time
+        ORDER BY o.order_status,o.order_creat_time
     </select>
 
     <delete id="updateOrderShowStatus">
