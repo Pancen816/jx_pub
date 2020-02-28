@@ -72,4 +72,12 @@ public interface UserMapper {
      * @return
      */
     int updateUserById(@Param("userId") String userId, @Param("nickName") String nickName, @Param("phone") String phone, @Param("updateTime") String updateTime);
+
+    /**
+     * 根据手机号 获取 用户数量
+     *
+     * @param userPhone
+     * @return
+     */
+    int getCountByPhone(@Param("userPhone") String userPhone);
 }

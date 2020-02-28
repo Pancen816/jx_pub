@@ -41,6 +41,9 @@ public class UserController {
         if (userService.getCountByIdNumber(user.getUserIdNumber()) > 0) {
             return new ResponseResult<>(false, "该身份证已被注册");
         }
+        if (userService.getCountByPhone(user.getUserPhone()) > 0) {
+            return new ResponseResult<>(false, "该手机号码已被使用");
+        }
         boolean aBoolean = userService.userRegister(user);
         if (aBoolean) {
             return new ResponseResult<>(true, "注册成功");
@@ -103,7 +106,7 @@ public class UserController {
             return new ResponseResult<>(false, "参数不完整");
         }
         User user = userService.getUserByUserId(userId);
-        if (!user.getUserNickName().equals(nickName) || userService.getCountByUserNickName(nickName) > 0) {
+        if (!user.getUserNickName().equals(nickName) && userService.getCountByUserNickName(nickName) > 0) {
             return new ResponseResult<>(false, "用户名已被使用");
         }
         boolean aBoolean = userService.updateUserById(userId,nickName,phone);

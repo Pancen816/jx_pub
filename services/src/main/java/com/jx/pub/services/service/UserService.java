@@ -57,4 +57,8 @@ public class UserService {
         int i = userMapper.updateUserById(userId,nickName,phone,TimeUtil.getNowTime());
         return i == 1;
     }
+
+    public int getCountByPhone(String userPhone) {
+       return userMapper.getCountByPhone(userPhone);
+    }
 }

@@ -48,4 +48,10 @@
         WHERE user_id = #{userId}
     </update>
 
+    <select id="getCountByPhone" resultType="int">
+        SELECT count(*)
+        FROM user
+        WHERE user_phone = #{userPhone}
+    </select>
+
 </mapper>
