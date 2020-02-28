@@ -175,4 +175,10 @@ public class OrderService {
     public List<Orders> getHistoryOrdersByUserId(String userId) {
         return orderMapper.getHistoryOrdersByUserId(userId);
     }
+
+    public Boolean deleteOrderByUser(String orderId) {
+        String updateTime = TimeUtil.getNowTime();
+        int i = orderMapper.updateOrderShowStatus(orderId,updateTime);
+        return i == 1;
+    }
 }

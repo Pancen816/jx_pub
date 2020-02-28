@@ -107,4 +107,13 @@ public interface OrderMapper {
      * @return
      */
     List<Orders> getHistoryOrdersByUserId(@Param("userId") String userId);
+
+    /**
+     * 修改用户端可见状态为不可见
+     *
+     * @param orderId
+     * @param updateTime
+     * @return
+     */
+    int updateOrderShowStatus(@Param("orderId") String orderId, @Param("updateTime") String updateTime);
 }

@@ -115,6 +115,12 @@ public class Orders implements Serializable {
     private String typeName;
 
     /**
+     * 房型图片
+     */
+    @ApiModelProperty(value = "房型图片")
+    private String typePic;
+
+    /**
      * 订单来源（0：线下；1：线上；）
      */
     @ApiModelProperty(value = "订单来源（0：线下；1：线上；）")

@@ -102,7 +102,7 @@
     </select>
 
     <select id="getNotInOrdersByUserId" resultType="com.jx.pub.common.pojo.Orders">
-        SELECT o.*, rt.type_name
+        SELECT o.*, rt.type_name,rt.type_pic
         FROM orders o,
              room_type rt
         WHERE o.type_id = rt.type_id
@@ -113,7 +113,7 @@
     </select>
 
     <select id="getHistoryOrdersByUserId" resultType="com.jx.pub.common.pojo.Orders">
-        SELECT o.*, rt.type_name
+        SELECT o.*, rt.type_name,rt.type_pic
         FROM orders o,
         room_type rt
         WHERE o.type_id = rt.type_id
@@ -123,5 +123,11 @@
         AND o.order_show_status = '0'
         ORDER BY o.order_creat_time
     </select>
+
+    <delete id="updateOrderShowStatus">
+        UPDATE orders
+        SET order_show_status = '1',order_update_time = #{updateTime}
+        WHERE order_id = #{orderId}
+    </delete>
 
 </mapper>

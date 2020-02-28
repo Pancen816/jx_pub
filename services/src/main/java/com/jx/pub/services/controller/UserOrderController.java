@@ -49,7 +49,7 @@ public class UserOrderController {
             return new ResponseResult<>(false, "参数不完整");
         }
         List<Orders> ordersList = orderService.getNotInOrdersByUserId(userId);
-        return new ResponseResult<>(false, "查询成功", ordersList);
+        return new ResponseResult<>(true, "查询成功", ordersList);
     }
 
     @GetMapping("/getHistoryOrders/{userId}")
@@ -59,7 +59,20 @@ public class UserOrderController {
             return new ResponseResult<>(false, "参数不完整");
         }
         List<Orders> ordersList = orderService.getHistoryOrdersByUserId(userId);
-        return new ResponseResult<>(false, "查询成功", ordersList);
+        return new ResponseResult<>(true, "查询成功", ordersList);
+    }
+
+    @GetMapping("/deleteOrderByUser/{orderId}")
+    @ApiOperation(value = "用户端删除订单", notes = "参数:orderId")
+    public ResponseResult<Void> deleteOrderByUser(@PathVariable("orderId") String orderId){
+        if (StringUtils.isBlank(orderId)) {
+            return new ResponseResult<>(false, "参数不完整");
+        }
+        Boolean aBoolean = orderService.deleteOrderByUser(orderId);
+        if (aBoolean) {
+            return new ResponseResult<>(true, "删除成功");
+        }
+        return new ResponseResult<>(false, "删除失败");
     }
 
 }
