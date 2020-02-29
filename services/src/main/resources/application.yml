@@ -30,7 +30,7 @@ logging:
   level:
     com.jx.pub.manage.mapper : DEBUG
 
-cookieDomain: localhost
 picUrl: http://23wz.top:8888/
+cookieDomain: localhost
 
 
