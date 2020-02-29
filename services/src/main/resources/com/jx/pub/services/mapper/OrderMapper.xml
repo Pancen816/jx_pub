@@ -46,7 +46,7 @@
                 AND o.order_creat_time &lt;= #{con.endTime} AND o.order_creat_time &gt; #{con.beginTime}
             </if>
         </where>
-        ORDER BY o.order_status DESC,o.order_creat_time
+        ORDER BY o.order_status,o.order_creat_time
     </select>
 
     <update id="deleteOrderById">
