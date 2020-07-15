@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
- * @author: Faxon
+ * @author: Bruce
  * @data: 2020/1/27
  */
 @Mapper

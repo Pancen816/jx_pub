@@ -10,9 +10,9 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 /**
- * @author Faxon
+ * @author Bruce
  * @version 1.0
- * @date 2020-01-28 14:27
+ * @date 2020-01-30 18:39
  **/
 @Configuration
 public class SwaggerConfig {
@@ -29,7 +29,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("君栖酒店后台管理系统Api文档")
-                .description("RestFul风格, 创建人：Faxon")
+                .description("RestFul风格, 创建人：Bruce")
                 .version("version 1.0")
                 .build();
     }

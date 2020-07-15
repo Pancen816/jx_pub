@@ -3,9 +3,9 @@ package com.jx.pub.common.util;
 import java.util.UUID;
 
 /**
- * @author Faxon
+ * @author Bruce
  * @version 1.0
- * @date 2020-01-28 13:28
+ * @date 2020-01-30 18:39
  **/
 public class IDUtil {
 

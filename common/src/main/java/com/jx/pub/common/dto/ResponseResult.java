@@ -8,11 +8,11 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * 通用数据传输对象
- *
- * @author Faxon
- * @date 2019-07-26 04:43:54
- */
+ * 通用数据返回对象
+ * @author Bruce
+ * @version 1.0
+ * @date 2020-01-30 18:39
+ **/
 @ApiModel(description = "通用数据返回对象")
 @Data
 public class ResponseResult<T> implements Serializable {

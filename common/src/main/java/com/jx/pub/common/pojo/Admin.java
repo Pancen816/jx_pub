@@ -2,13 +2,15 @@ package com.jx.pub.common.pojo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
-* @author: Faxon
-* @data: 2020/1/27
-*/
+ * @author Bruce
+ * @version 1.0
+ * @date 2020-01-30 18:39
+ **/
 @ApiModel(description = "管理员实体类")
 @Data
 public class Admin implements Serializable {

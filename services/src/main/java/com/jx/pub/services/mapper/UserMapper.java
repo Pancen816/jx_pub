@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
- * @author Faxon
+ * @author Bruce
  * @version 1.0
  * @date 2020-02-27 16:32
  **/

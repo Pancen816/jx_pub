@@ -9,7 +9,7 @@ import org.springframework.util.DigestUtils;
 import javax.annotation.Resource;
 
 /**
- * @author Faxon
+ * @author Bruce
  * @version 1.0
  * @date 2020-01-28 12:36
  **/

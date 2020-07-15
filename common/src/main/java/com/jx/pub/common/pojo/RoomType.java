@@ -8,9 +8,10 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author: Faxon
- * @data: 2020/1/27
- */
+ * @author Bruce
+ * @version 1.0
+ * @date 2020-01-30 18:39
+ **/
 @ApiModel(value = "com-jx-pub-common-pojo-RoomType")
 @Data
 public class RoomType implements Serializable {

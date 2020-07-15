@@ -7,9 +7,10 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @author: Faxon
- * @data: 2020/1/27
- */
+ * @author Bruce
+ * @version 1.0
+ * @date 2020-01-30 18:39
+ **/
 @ApiModel(value = "com-jx-pub-common-pojo-Lodger")
 @Data
 public class Lodger implements Serializable {

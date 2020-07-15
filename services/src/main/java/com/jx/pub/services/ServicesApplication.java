@@ -5,9 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
-* @author: Faxon
-* @data: 2020/1/27
-*/
+ * 启动类
+ * @author Bruce
+ * @date 2020-07-15 21:50
+ */
+
 @EnableSwagger2
 @SpringBootApplication
 public class ServicesApplication {

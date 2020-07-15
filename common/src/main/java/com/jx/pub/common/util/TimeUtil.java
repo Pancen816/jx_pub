@@ -1,15 +1,13 @@
 package com.jx.pub.common.util;
 
-import javafx.scene.input.DataFormat;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 /**
- * @author Faxon
+ * @author Bruce
  * @version 1.0
- * @date 2020-01-28 14:10
+ * @date 2020-01-30 18:39
  **/
 public class TimeUtil {
 
